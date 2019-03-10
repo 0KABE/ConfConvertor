@@ -1,0 +1,223 @@
+<?xml version="1.0"?>
+<!--需要注意&amp;需要使用&amp;amp;转义-->
+<conf>
+    <General>
+        <loglevel>notify</loglevel>
+        <dns-server>system,1.2.4.8,223.5.5.5,223.6.6.6</dns-server>
+        <skip-proxy>127.0.0.1,192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,100.64.0.0/10,17.0.0.0/8,localhost,*.local,*.crashlytics.com</skip-proxy>
+        <allow-wifi-access>true</allow-wifi-access>
+        <ipv6>false</ipv6>
+    </General>
+    <Replica>
+        <hide-apple-request>true</hide-apple-request>
+        <hide-crashlytics-request>true</hide-crashlytics-request>
+        <hide-udp>false</hide-udp>
+        <use-keyword-filter>false</use-keyword-filter>
+    </Replica>
+    <Proxy>
+        <direct>🔘 DIRECT</direct>
+    </Proxy>
+    <Proxy_Group>
+        <!--因为Clash的后面的策略组以来前面的策略组而surge3没有相关规则，所以在导出为Clash配置时，可以使用Clash sort weight对策略组重排序-->
+        <!--如果出现多个policy-path或者policy-path和策略组或者节点复合则就算是sruge3也会进行展开-->
+        <!--policy-path必须在所有策略组或者节点的前面-->
+        <!--只有Clash支持的Load Balance转换为Surge时将会改变type类型（类型待定为url-test）-->
+
+        <!-- # 节点选项 -->
+        <Group name="🔰 Proxy" type = "select" sort_weight="2">
+            <proxies>🐦 Fallback</proxies>
+            <proxies>🐤 Auto</proxies>
+            <proxies>🐧 Node</proxies>
+            <proxies>🏳️‍🌈 Pass Gold</proxies>
+            <proxies>🔘 DIRECT</proxies>
+            <proxies>🎮 Game</proxies>
+            <proxies>🇭🇰 Hong Kong</proxies>
+            <proxies>🇨🇳 Taiwan</proxies>
+            <proxies>🇯🇵 Japan</proxies>
+            <proxies>🇰🇷 Korea</proxies>
+            <proxies>🇸🇬 Singapore</proxies>
+            <proxies>🇷🇺 Russia</proxies>
+            <proxies>🇩🇪 Germany</proxies>
+            <proxies>🇺🇸 America</proxies>
+        </Group>
+
+        <Group name="🏳️‍🌈 Pass Gold" type= "select" sort_weight="1">
+            <policy-path url= "https://dler.cloud/link/QWERTYUIOP?list=1&amp;class=gold"/>
+        </Group>
+
+        <!-- # 海外流媒体服务策略组（适用于 YouTube, Netflix, Spotify, Amazon Prime Video, BBC, FOX+, AbemaTV 等海外流媒体服务） -->
+        <Group name="📺 Streaming" type="select" sort_weight="3">
+            <proxies>🔰 Proxy</proxies>
+            <proxies>🐧 Node</proxies>
+            <proxies>🇭🇰 Hong Kong</proxies>
+            <proxies>🇨🇳 Taiwan</proxies>
+            <proxies>🇯🇵 Japan</proxies>
+            <proxies>🇰🇷 Korea</proxies>
+            <proxies>🇸🇬 Singapore</proxies>
+            <proxies>🇷🇺 Russia</proxies>
+            <proxies>🇩🇪 Germany</proxies>
+            <proxies>🇺🇸 America</proxies>
+        </Group>
+
+        <!-- # 国内服务策略组 -->
+        <Group name="🦉 Domestic" type="select" sort_weight="3">
+            <proxies>🔘 DIRECT</proxies>
+            <proxies>🔰 Proxy</proxies>
+        </Group>
+
+        <!-- # 国内流媒体服务策略组（适用于爱奇艺、哔哩哔哩、动画疯） -->
+        <Group name="💿 DomesticStreaming" type="select" sort_weight="4">
+            <proxies>🦉 Domestic</proxies>
+            <proxies>🇨🇳 Taiwan</proxies>
+            <proxies>🇨🇳 China</proxies>
+        </Group>
+
+        <!-- # Apple 服务策略组 -->
+        <Group name="🍎 Apple" type="select" sort_weight="3">
+            <proxies>🔘 DIRECT</proxies>
+            <proxies>🔰 Proxy</proxies>
+            <proxies>🐤 Auto</proxies>
+        </Group>
+
+        <!-- # 去广告以及隐私追踪保护、反运营商劫持开关 -->
+        <Group name="👾 Advertising" type="select" sort_weight="1">
+            <policy-path url="https://raw.githubusercontent.com/JO2EY/Rules/master/Surge/ADVERTISING.list"/>
+        </Group>
+
+        <!-- # Final  -->
+        <Group name="☁️ Final" type="select" sort_weight="3">
+            <proxies>🔰 Proxy</proxies>
+            <proxies>🔘 DIRECT</proxies>
+        </Group>
+
+        <Group name="🐧 Node" type="select" sort_weight="1">
+            <policy-path url="https://dler.cloud/link/QWERTYUIOP?surge=3&amp;list=1&amp;type=media"/>
+        </Group>
+
+        <!-- # Auto Gold -->
+        <Group name="🐤 Auto" type="url-test" sort_weight="1" url="http://www.gstatic.com/generate_204" interval="1200" tolerance="300" timeout="5">
+            <policy-path url="https://dler.cloud/link/QWERTYUIOP?surge=3&amp;list=1&amp;area=hk&amp;class=gold&amp;noisp=hgc"/>
+        </Group>
+
+        <!-- # Fallback Gold HK -->
+        <Group name="🐦 Fallback" type="fallback" sort_weight="1" url="http://www.gstatic.com/generate_204" timeout="2">
+            <policy-path url= "https://dler.cloud/link/QWERTYUIOP?surge=3&amp;list=1&amp;area=hk&amp;class=gold&amp;noisp=hgc"/>
+        </Group>
+
+        <!-- Region -->
+        <Group name="🇨🇳 China" type="select" sort_weight="1">
+            <policy-path url="https://dler.cloud/link/QWERTYUIOP?surge=3&amp;list=1&amp;area=cn"/>
+        </Group>
+
+        <Group name="🇭🇰 Hong Kong" type="url-test" sort_weight="1" url="http://www.gstatic.com/generate_204" interval="1200" tolerance="300" timeout="5">
+            <policy-path url="https://dler.cloud/link/QWERTYUIOP?surge=3&amp;list=1&amp;area=hk"/>
+        </Group>
+
+        <Group name="🇨🇳 Taiwan" type="url-test" sort_weight="1" url="http://www.gstatic.com/generate_204" interval="1200" tolerance="300" timeout="5">
+            <policy-path url="https://dler.cloud/link/QWERTYUIOP?surge=3&amp;list=1&amp;area=tw"/>
+        </Group>
+
+        <Group name="🇯🇵 Japan" type="url-test" sort_weight="1" url="http://www.gstatic.com/generate_204" interval="1200" tolerance="300" timeout="5">
+            <policy-path url="https://dler.cloud/link/QWERTYUIOP?surge=3&amp;list=1&amp;area=jp"/>
+        </Group>
+
+        <Group name="🇰🇷 Korea" type="url-test" sort_weight="1" url="http://www.gstatic.com/generate_204" interval="1200" tolerance="300" timeout="5">
+            <policy-path url="https://dler.cloud/link/QWERTYUIOP?surge=3&amp;list=1&amp;area=kr" />
+        </Group>
+
+        <Group name="🇸🇬 Singapore" type="url-test" sort_weight="1" url="http://www.gstatic.com/generate_204" interval="1200" tolerance="300" timeout="5">
+            <policy-path url="https://dler.cloud/link/QWERTYUIOP?surge=3&amp;list=1&amp;area=sg"/>
+        </Group>
+
+        <Group name="🇷🇺 Russia" type="url-test" sort_weight="1" url="http://www.gstatic.com/generate_204" interval="1200" tolerance="300" timeout="5">
+            <policy-path url="https://dler.cloud/link/QWERTYUIOP?surge=3&amp;list=1&amp;area=ru"/>
+        </Group>
+
+        <Group name="🇩🇪 Germany" type="url-test" sort_weight="1" url="http://www.gstatic.com/generate_204" interval="1200" tolerance="300" timeout="5">
+            <policy-path url="https://dler.cloud/link/QWERTYUIOP?surge=3&amp;list=1&amp;area=de"/>
+        </Group>
+        <Group name="🇺🇸 America" type="url-test" sort_weight="1" url="http://www.gstatic.com/generate_204" interval="1200" tolerance="300" timeout="5">
+            <policy-path url="https://dler.cloud/link/QWERTYUIOP?surge=3&amp;list=1&amp;area=us"/>
+        </Group>
+    </Proxy_Group>
+    <Rule>
+        <!-- # Apple 服务加速 -->
+        <USER-AGENT proxy_group="🍎 Apple">AppStore*</USER-AGENT>
+        <USER-AGENT proxy_group="🍎 Apple">com.apple.appstored*</USER-AGENT>
+        <USER-AGENT proxy_group="🍎 Apple">TestFlight*</USER-AGENT>
+        <DOMAIN-SUFFIX proxy_group="🍎 Apple">apple.com</DOMAIN-SUFFIX>
+        <DOMAIN-SUFFIX proxy_group="🍎 Apple">icloud.com</DOMAIN-SUFFIX>
+        <DOMAIN-SUFFIX proxy_group="🍎 Apple">itunes.com</DOMAIN-SUFFIX>
+        <DOMAIN-SUFFIX proxy_group="🍎 Apple">me.com</DOMAIN-SUFFIX>
+        <DOMAIN-SUFFIX proxy_group="🍎 Apple">mzstatic.com</DOMAIN-SUFFIX>
+
+        <!-- # NOTIFICATION -->
+        <AND proxy_group="🔘 DIRECT" notification-text="Remote Rule Updated" notification-interval="3">((DOMAIN,raw.githubusercontent.com), (USER-AGENT,Surge*))</AND>
+        <AND proxy_group="🔘 DIRECT" notification-text="Profile Updated" notification-interval="3">((DOMAIN,tgbot.lbyczf.com), (USER-AGENT,Surge*))</AND>
+
+        <!-- # RULESET -->
+        <RULE-SET proxy_group="🍎 Apple">SYSTEM</RULE-SET>
+
+        <!-- # Internet Service Provider Hijacking 反运营商劫持 -->
+        <RULE-SET proxy_group="👾 Advertising" notification-text="⚠️ 遭受运营商劫持，如页面异常请刷新">https://raw.githubusercontent.com/ConnersHua/Profiles/master/Surge/Hijacking.list</RULE-SET>
+
+        <!-- # 国内流媒体服务加速（适用于爱奇艺、哔哩哔哩、动画疯） -->
+        <RULE-SET proxy_group="💿 DomesticStreaming">https://raw.githubusercontent.com/lhie1/Rules/master/Surge3/domestic_media.list</RULE-SET>
+        <RULE-SET proxy_group="🔘 DIRECT">LAN</RULE-SET>
+
+        <!-- # CUSTOM RULE -->
+        <!-- # Client -->
+        <!-- # > Proxy -->
+        <PROCESS-NAME proxy_group="🔘 DIRECT">v2ray</PROCESS-NAME>
+        <PROCESS-NAME proxy_group="🔘 DIRECT">ss-local</PROCESS-NAME>
+        <!-- # > Download -->
+        <PROCESS-NAME proxy_group="🔘 DIRECT">aria2c</PROCESS-NAME>
+        <PROCESS-NAME proxy_group="🔘 DIRECT">fdm</PROCESS-NAME>
+        <PROCESS-NAME proxy_group="🔘 DIRECT">Folx</PROCESS-NAME>
+        <PROCESS-NAME proxy_group="🔘 DIRECT">NetTransport</PROCESS-NAME>
+        <PROCESS-NAME proxy_group="🔘 DIRECT">Thunder</PROCESS-NAME>
+        <PROCESS-NAME proxy_group="🔘 DIRECT">Transmission</PROCESS-NAME>
+        <PROCESS-NAME proxy_group="🔘 DIRECT">uTorrent</PROCESS-NAME>
+        <PROCESS-NAME proxy_group="🔘 DIRECT">WebTorrent</PROCESS-NAME>
+        <PROCESS-NAME proxy_group="🔘 DIRECT">WebTorrent Helper</PROCESS-NAME>
+        <!-- # Advertising Block 去广告以及隐私追踪保护 -->
+        <!-- # > Exclusions -->
+        <DOMAIN proxy_group="🔰 Proxy">analytics.google.com</DOMAIN>
+        <DOMAIN proxy_group="🔰 Proxy">analyticsinsights-pa.googleapis.com</DOMAIN>
+        <DOMAIN proxy_group="🔰 Proxy">analyticsreporting.googleapis.com</DOMAIN>
+        <DOMAIN-SUFFIX proxy_group="🔘 DIRECT">vd.l.qq.com</DOMAIN-SUFFIX>
+        <RULE-SET proxy_group="👾 Advertising">https://raw.githubusercontent.com/ConnersHua/Profiles/master/Surge/Advertising.list</RULE-SET>
+
+        <!-- # Hijacking Protection 反运营商及臭名昭著的应用劫持保护 -->
+
+        <!-- # ForeignMedia 媒体应用（Youtube、Netflix、HBO、Hulu、BBC iPlayer、Bahamut、myTV SUPER、AbemaTV、encoreTVB、PBS、Amazon Prime Video、Spotify、Pandora 和 JOOX） -->
+        <RULE-SET proxy_group="📺 Streaming">https://raw.githubusercontent.com/ConnersHua/Profiles/master/Surge/ForeignMedia.list</RULE-SET>
+
+        <!-- # DomesticMedia 媒体应用（愛奇藝台灣站） -->
+        <RULE-SET proxy_group="💿 DomesticStreaming">https://raw.githubusercontent.com/ConnersHua/Profiles/master/Surge/DomesticMedia.list</RULE-SET>
+
+        <!-- # Global 全球加速规则 -->
+        <RULE-SET proxy_group="🔰 Proxy">https://raw.githubusercontent.com/ConnersHua/Profiles/master/Surge/Global.list</RULE-SET>
+
+        <!-- # Apple 部分服务加速（App Store、Movies、Music、News 及海外版 Maps） -->
+        <RULE-SET proxy_group="🍎 Apple">https://raw.githubusercontent.com/ConnersHua/Profiles/master/Surge/Apple.list</RULE-SET>
+
+        <!-- # China 中国直连规则 -->
+        <RULE-SET proxy_group="🔘 DIRECT">https://raw.githubusercontent.com/ConnersHua/Profiles/master/Surge/China.list</RULE-SET>
+
+        <!-- # Local Area Network -->
+
+        <!-- # GeoIP China -->
+        <GEOIP proxy_group="🔘 DIRECT">CN</GEOIP>
+
+        <FINAL proxy_group="☁️ Final">dns-failed</FINAL>
+    </Rule>
+    <Host>
+        <l url="*.taobao.com">server:223.5.5.5</l>
+        <l url="*.tmall.com">server:223.5.5.5</l>
+    </Host>
+    <URL_Rewrite></URL_Rewrite>
+    <Header_Rewrite></Header_Rewrite>
+    <SSID_Setting></SSID_Setting>
+    <MITM></MITM>
+</conf>
