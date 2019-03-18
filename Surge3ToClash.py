@@ -205,7 +205,7 @@ def main():
     content = requests.get(url).content
     content = bytes.decode(content)
     response = make_response(Surge3ToClash(content))
-    response.headers["Content-Disposition"] = "attachment; filename=Temp.yml"
+    response.headers["Content-Disposition"] = "attachment; filename=config.yml"
     return response
 
 
