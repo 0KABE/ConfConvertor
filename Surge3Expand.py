@@ -97,7 +97,7 @@ def main():
     content = requests.get(url).content
     content = bytes.decode(content)
     response = make_response(Surge3ToClash(content))
-    response.headers["Content-Disposition"] = "attachment; filename=Temp.conf"
+    response.headers["Content-Disposition"] = "attachment; filename=config.conf"
     return response
 
 
