@@ -54,7 +54,7 @@ def Proxy_Group(proxy_group, proxy):
     # 将list转化为string
     proxy_group = "\n".join(proxy_group)
     proxy_group += "\n\n"
-    proxy += "\n".join(list(sorted(proxy_dic.values())))
+    proxy += list(sorted(proxy_dic.values()))
     proxy += "\n\n"
     return proxy_group, proxy
 
@@ -64,7 +64,10 @@ def Surge3ToClash(content):
     front = re.search(r"^(.|\r|\n)*(?=\[Proxy\])", content).group()
     # [Proxy]的配置
     proxy = re.search(
-        r"\[Proxy\](.|\r|\n)[^\[]*", content).group()
+        r"\[Proxy\](.|\r|\n)[^\[]*", content).group(1)
+    proxy = proxy.rstrip("\n")
+    proxy = proxy.splitlines()
+    proxy = list(set(proxy))
     # [Proxy Group]的配置
     proxy_group = re.search(
         r"\[Proxy Group\][^\[]*", content).group()
@@ -78,7 +81,8 @@ def Surge3ToClash(content):
         back = back.group()
     else:
         back = ""
-
+    # Proxy去重
+    proxy = "[Proxy]\n" + "\n".join(proxy)
     return front+proxy+proxy_group+rule+back
 
 
