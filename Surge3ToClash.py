@@ -191,7 +191,9 @@ def Surge3ToClash(content):
 
 
 @app.route('/', methods=['GET', 'POST'])
-def main():
+# Cloud Function: def main(request):
+# Local debug: def main():
+def main(request):
     """Responds to any HTTP request.
     Args:
         request (flask.Request): HTTP request object.
@@ -209,6 +211,7 @@ def main():
     return response
 
 
+# Code for debug locally, do not sync to the cloud function platform
 if __name__ == '__main__':
     app.debug = False
     app.run(host='localhost', port=5000)
