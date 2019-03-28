@@ -4,6 +4,8 @@
     <General>
         <ipv6 value="true/false"/>
         <loglevel value="verbose/info/notify/warning"/>
+        <show-error-page-for-reject value="true/false"/>
+        <allow-wifi-access value="true/false"/>
         <skip-proxy>
             <Item>value</Item>
             <Item>value</Item>
@@ -28,6 +30,12 @@
         </DnsServer>
     </General>
 
+    <Replica>
+        <hide-apple-request value="true/false"/>
+        <hide-crashlytics-request value="true/false"/>
+        <hide-udp value="true/false"/>
+    </Replica>
+
     <Proxies>
         <PROXY type="HTTP/SOCKS5" server="" port="" username="" password="" interface="" allow-other-interface="true/false" />
         <PROXY type="ProxySOCKS5TLS/HTTPS" server="" port="" username="" password="" interface="" allow-other-interface="true/false" skip-common-name-verify="true/false" sni=""/>
@@ -35,28 +43,28 @@
     </Proxies>
 
     <PolicyGroup>
-        <Group type="select">
+        <Group name="" type="select">
             <PolicyPath url=""/>
             <PolicyPath url=""/>
             <Policy name=""/>
             <Policy name=""/>
             <Policy name=""/>
         </Group>
-        <Group type="url-test" url="" interval="" tolerance="" timeout="">
+        <Group name=""type="url-test" url="" interval="" tolerance="" timeout="">
             <PolicyPath url=""/>
             <PolicyPath url=""/>
             <Policy name=""/>
             <Policy name=""/>
             <Policy name=""/>
         </Group>
-        <Group type="fallback" url="" interval="" timeout="">
+        <Group name="" type="fallback" url="" interval="" timeout="">
             <PolicyPath url=""/>
             <PolicyPath url=""/>
             <Policy name=""/>
             <Policy name=""/>
             <Policy name=""/>
         </Group>
-        <Group type="ssid">
+        <Group name=""type="ssid">
             <Policy name="" ssid=""/>
             <Policy name="" ssid=""/>
             <Policy name="" ssid=""/>
@@ -85,22 +93,21 @@
         <SRC-IP value="" policy=""/>
         <IN-PORT value="" policy=""/>
         <!-- Ruleset -->
-        <RULE-SET type="internal/external" value="" policy=""/>
+        <!-- type属性缺省为external -->
+        <RULE-SET type="Surge3Internal/external" value="" policy=""/>
         <!-- Final Rule -->
         <FINAL dns-failed="true/false" policy=""/>
     </Rules>
 
     <Host>
-        <Item type="server/local" value=""/>
-        <Item type="server/local" value=""/>
-        <Item type="server/local" value=""/>
+        <Server key="" value=""/>
+        <Local key="" value=""/>
     </Host>
 
     <UrlRewrite>
-        <Item type="header/302/reject" expression="" replacement=""/>
-        <Item type="header/302/reject" expression="" replacement=""/>
-        <Item type="header/302/reject" expression="" replacement=""/>
-        <Item type="header/302/reject" expression="" replacement=""/>
+        <header expression="" replacement=""/>
+        <302 expression="" replacement=""/>
+        <reject expression="" replacement=""/>
     </UrlRewrite>
 
     <HeaderRewrite>
@@ -110,7 +117,7 @@
     </HeaderRewrite>
 
     <!-- 属性enable缺省为false -->
-    <MITM enable="true/false">
+    <MITM enable="true/false" skip-server-cert-verify="true/false">
         <ca-p12>value</ca-p12>
         <ca-passphrase>password</ca-passphrase>
         <hostname>*google.com</hostname>
