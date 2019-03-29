@@ -22,47 +22,44 @@
             <Item>value</Item>
         </tun-included-routes>
         <DnsServer>
-            <!-- 类型缺省为external，external下必须存在参数server -->
-            <Item type="system"/>
-            <Item type="external" server=""/>
-            <Item server=""/>
-            <Item server=""/>
+            <Item></Item>
+            <Item></Item>
+            <Item></Item>
+            <Item></Item>
         </DnsServer>
     </General>
 
     <Replica>
-        <hide-apple-request value="true/false"/>
-        <hide-crashlytics-request value="true/false"/>
-        <hide-udp value="true/false"/>
+        <hide-apple-request>true</hide-apple-request>
+        <hide-crashlytics-request >true</hide-crashlytics-request>
+        <hide-udp>false</hide-udp>
     </Replica>
 
     <Proxies>
-        <PROXY type="HTTP/SOCKS5" server="" port="" username="" password="" interface="" allow-other-interface="true/false" />
-        <PROXY type="ProxySOCKS5TLS/HTTPS" server="" port="" username="" password="" interface="" allow-other-interface="true/false" skip-common-name-verify="true/false" sni=""/>
-        <PROXY type="Built-in" built-in="direct/reject" policy="" interface="" allow-other-interface="true/false"/>
+        <Built-in key="" value=""/>
     </Proxies>
 
     <PolicyGroup>
         <Group name="" type="select">
-            <PolicyPath url=""/>
-            <PolicyPath url=""/>
-            <Policy name=""/>
-            <Policy name=""/>
-            <Policy name=""/>
+            <policy-path></policy-path>
+            <policy-path></policy-path>
+            <policy></policy>
+            <policy></policy>
+            <policy></policy>
         </Group>
         <Group name=""type="url-test" url="" interval="" tolerance="" timeout="">
-            <PolicyPath url=""/>
-            <PolicyPath url=""/>
-            <Policy name=""/>
-            <Policy name=""/>
-            <Policy name=""/>
+            <policy-path></policy-path>
+            <policy-path></policy-path>
+            <policy></policy>
+            <policy></policy>
+            <policy></policy>
         </Group>
         <Group name="" type="fallback" url="" interval="" timeout="">
-            <PolicyPath url=""/>
-            <PolicyPath url=""/>
-            <Policy name=""/>
-            <Policy name=""/>
-            <Policy name=""/>
+            <policy-path></policy-path>
+            <policy-path></policy-path>
+            <policy></policy>
+            <policy></policy>
+            <policy></policy>
         </Group>
         <Group name=""type="ssid">
             <Policy name="" ssid=""/>
@@ -72,31 +69,34 @@
     </PolicyGroup>
 
     <Rules>
+        <!-- 非必须：notification-text notification-interval -->
+        <!-- 必须：value policy -->
+
         <!-- Domain-based Rule -->
-        <DOMAIN value="" policy=""/>
-        <DOMAIN-SUFFIX value="" policy=""/>
-        <DOMIAN-KEYWORD value="" policy=""/>
+        <DOMAIN value="" policy="" notification-text="" notification-interval=""/>
+        <DOMAIN-SUFFIX value="" policy="" notification-text="" notification-interval=""/>
+        <DOMIAN-KEYWORD value="" policy="" notification-text="" notification-interval=""/>
         <!-- IP-based Rule -->
-        <GEOIP value="" policy="" no-resolve="true/false"/>
-        <IP-CIDR value="" policy="" no-resolve="true/false"/>
+        <GEOIP value="" policy="" no-resolve="true/false" notification-text="" notification-interval=""/>
+        <IP-CIDR value="" policy="" no-resolve="true/false" notification-text="" notification-interval=""/>
         <!-- HTTP Rule -->
-        <USER-AGENT value="" policy=""/>
-        <URL-REGEX value="" policy=""/>
+        <USER-AGENT value="" policy="" notification-text="" notification-interval=""/>
+        <URL-REGEX value="" policy="" notification-text="" notification-interval=""/>
         <!-- Process Rule -->
-        <PROCESS-NAME value="" policy=""/>
+        <PROCESS-NAME value="" policy="" notification-text="" notification-interval=""/>
         <!-- Logical Rule -->
-        <AND value="" policy=""/>
-        <OR value="" policy=""/>
-        <NOT value="" policy=""/>
+        <AND value="" policy="" notification-text="" notification-interval=""/>
+        <OR value="" policy="" notification-text="" notification-interval=""/>
+        <NOT value="" policy="" notification-text="" notification-interval=""/>
         <!-- Miscellaneous Rule -->
-        <DEST-PORT value="" policy=""/>
-        <SRC-IP value="" policy=""/>
-        <IN-PORT value="" policy=""/>
+        <DEST-PORT value="" policy="" notification-text="" notification-interval=""/>
+        <SRC-IP value="" policy="" notification-text="" notification-interval=""/>
+        <IN-PORT value="" policy="" notification-text="" notification-interval=""/>
         <!-- Ruleset -->
         <!-- type属性缺省为external -->
-        <RULE-SET type="Surge3Internal/external" value="" policy=""/>
+        <RULE-SET type="Surge3Internal/external" value="" policy="" notification-text="" notification-interval=""/>
         <!-- Final Rule -->
-        <FINAL dns-failed="true/false" policy=""/>
+        <FINAL dns-failed="true/false" policy="" notification-text="" notification-interval=""/>
     </Rules>
 
     <Host>
@@ -105,21 +105,25 @@
     </Host>
 
     <UrlRewrite>
-        <header expression="" replacement=""/>
-        <302 expression="" replacement=""/>
-        <reject expression="" replacement=""/>
+        <Item type="header" expression="" replacement=""/>
+        <Item type="302" expression="" replacement=""/>
+        <Item type="reject" expression="" replacement=""/>
     </UrlRewrite>
 
     <HeaderRewrite>
-        <Item url="" type="header-del" field="" />
-        <Item url="" type="header-add" field="" value=""/>
-        <Item url="" type="header-replace" field="" value=""/>
+        <Item type="header-del" field="" />
+        <Item type="header-add" field="" value=""/>
+        <Item type="header-replace" field="" value=""/>
     </HeaderRewrite>
 
     <!-- 属性enable缺省为false -->
     <MITM enable="true/false" skip-server-cert-verify="true/false">
         <ca-p12>value</ca-p12>
         <ca-passphrase>password</ca-passphrase>
-        <hostname>*google.com</hostname>
+        <hostname>
+            <Item></Item>
+            <Item></Item>
+            <Item></Item>
+        </hostname>
     </MITM>
 </conf>
