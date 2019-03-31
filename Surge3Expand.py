@@ -4,6 +4,8 @@ from flask import Response
 from flask import make_response
 import requests
 import re
+from Surge3LikeConfig2XML import Content2XML
+from XML2Surge3 import XML2Surge3
 
 app = Flask(__name__)
 
@@ -100,9 +102,13 @@ def main(request):
         `make_response <http://flask.pocoo.org/docs/1.0/api/
     """
     url = request.args.get('url')
-    content = requests.get(url).content
-    content = bytes.decode(content)
-    response = make_response(Surge3ToClash(content))
+    req=requests.get(url)
+    content = req.content.decode()
+    # content = bytes.decode(content)
+    x = Content2XML(content)
+    result = XML2Surge3(x)
+    response = make_response(result)
+    # response = make_response(Surge3ToClash(content))
     response.headers["Content-Disposition"] = "attachment; filename=config.conf"
     return response
 
