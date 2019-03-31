@@ -21,10 +21,22 @@ def GetReplicaElement(line):
 
 
 def GetProxyElement(line):
+    Info_Correspond = ("type", "server", "port")
     l = line.split("=", 1)
-    element = ET.Element("Built-in")
-    element.set("name", l[0].strip())
-    element.set("policy", l[1].strip())
+    if l[1].find(",") == -1:
+        element = ET.Element("Built-in")
+        element.set("name", l[0].strip())
+        element.set("policy", l[1].strip())
+    else:
+        element = ET.Element("External")
+        element.set("name", l[0].strip())
+        info = l[1].split(",")
+        for i in range(len(info)):
+            if i < 3:
+                element.set(Info_Correspond[i], info[i].strip())
+            else:
+                option = info[i].split("=")
+                element.set(option[0].strip(), option[1].strip())
     return element
 
 
@@ -37,7 +49,7 @@ def GetProxyGroupElement(line):
         if i == 0:
             element.set("type", values[i])
         elif values[i].find("=") != -1:
-            option = values[i].split("=")
+            option = values[i].split("=", 1)
             if option[0].strip() == "policy-path":
                 sub = ET.Element("policy-path")
                 sub.text = option[1].strip()
