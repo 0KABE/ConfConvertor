@@ -1,11 +1,11 @@
 import requests
 from flask import request
 from flask import make_response
-import mylocalpackage.GetUrlContent
-import mylocalpackage.XML2Surge3
-import mylocalpackage.Surge3LikeConfig2XML
-from mylocalpackage.Surge3LikeConfig2XML import Content2XML
-from mylocalpackage.XML2Surge3 import XML2Surge3
+import ConfigOperation.GetUrlContent
+import ConfigOperation.XML2Surge3
+import ConfigOperation.Surge3LikeConfig2XML
+from ConfigOperation.Surge3LikeConfig2XML import Content2XML
+from ConfigOperation.XML2Surge3 import XML2Surge3
 
 
 def Surge3Expand(request):

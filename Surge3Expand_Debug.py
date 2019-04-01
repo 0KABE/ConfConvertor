@@ -4,9 +4,9 @@ from flask import Response
 from flask import make_response
 import requests
 import re
-import mylocalpackage.GetUrlContent
-import mylocalpackage.XML2Surge3
-import mylocalpackage.Surge3LikeConfig2XML
+import ConfigOperation.GetUrlContent
+import ConfigOperation.XML2Surge3
+import ConfigOperation.Surge3LikeConfig2XML
 from main import Surge3Expand
 
 app = Flask(__name__)

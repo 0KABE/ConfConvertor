@@ -1,6 +1,6 @@
 import asyncio
 import aiohttp
-from mylocalpackage.Surge3LikeConfig2XML import GetProxyElement
+from ConfigOperation.Surge3LikeConfig2XML import GetProxyElement
 import xml.etree.ElementTree as ET
 
 result = {}
