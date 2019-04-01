@@ -103,7 +103,7 @@ def GetHeaderRewriteElement(line):
 
 
 def GetMITMElement(line):
-    l = line.split("=")
+    l = line.split("=", 1)
     element = ET.Element(l[0].replace(" ", ""))
     element.text = l[1].strip()
     return element
@@ -149,9 +149,9 @@ def Content2XML(content):
                 CurElement.append(GetMITMElement(line))
     # tree = ET.ElementTree(root)
     # # tree.write("test.xml", xml_declaration="true", encoding="utf-8")
-    result = xml.dom.minidom.parseString(
-        ET.tostring(root)).toprettyxml()
-    print(result)
+    # result = xml.dom.minidom.parseString(
+    #     ET.tostring(root)).toprettyxml()
+    # print(result)
     return ET.tostring(root)
 
 # if __name__ == "__main__":
