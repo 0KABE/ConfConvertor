@@ -1,6 +1,6 @@
 import asyncio
 import aiohttp
-from Surge3LikeConfig2XML import GetProxyElement
+from mylocalpackage.Surge3LikeConfig2XML import GetProxyElement
 import xml.etree.ElementTree as ET
 
 result = {}
@@ -10,9 +10,9 @@ async def download(url):
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as resp:
             print("Downloading:"+url)
-            text=await resp.text()
+            text = await resp.text()
             print("Downloade Completed:"+url)
-            result[url]=text
+            result[url] = text
             # result[url] = await resp.text()
 
            # print('\n\n', await resp.text())
