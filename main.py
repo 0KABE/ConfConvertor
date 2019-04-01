@@ -1,6 +1,8 @@
 import requests
 from flask import request
 from flask import make_response
+import Surge3LikeConfig2XML
+import XML2Surge3
 from Surge3LikeConfig2XML import Content2XML
 from XML2Surge3 import XML2Surge3
 
