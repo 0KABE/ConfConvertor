@@ -1,0 +1,103 @@
+import xml.etree.ElementTree as ET
+
+def ToSurge3(root):
+    """
+    Args:
+        root(xml.etree.ElementTree.Element): the root element of the xml
+    Return:
+        A string contains Surge3Pro Configuration Content
+    Do:
+        Convert the content Surge3Pro-supported to String
+    """
+    Surge3 = ""
+    KeyWordsCorrespond = {"General": "[General]", "Replica": "[Replica]", "Proxy": "[Proxy]", "ProxyGroup": "[Proxy Group]", "Rule": "[Rule]",
+                          "Host": "[Host]", "URLRewrite": "[URL Rewrite]", "HeaderRewrite": "[Header Rewrite]", "SSIDSetting": "[SSID Setting]", "MITM": "[MITM]"}
+    for elem in root:
+        Surge3 += KeyWordsCorrespond[elem.tag]+"\n"
+        if elem.tag == "General":
+            for sub in elem:
+                if sub.tag == "comment":
+                    Surge3 += sub.text+"\n"
+                else:
+                    Surge3 += sub.tag+" = "+sub.text+"\n"
+        elif elem.tag == "Replica":
+            for sub in elem:
+                if sub.tag == "comment":
+                    Surge3 += sub.text+"\n"
+                else:
+                    Surge3 += sub.tag+" = "+sub.text+"\n"
+        elif elem.tag == "Proxy":
+            RequiredPara = ("type", "server", "port")
+            for sub in elem:
+                if sub.tag == "comment":
+                    Surge3 += sub.text+"\n"
+                elif sub.tag == "Built-in":
+                    Surge3 += sub.get("name")+" = "+sub.get("policy")+"\n"
+                else:
+                    if sub.get("type") == "ss":
+                        l = list()
+                        for it in RequiredPara:
+                            l.append(sub.get(it))
+                        for it in sub.attrib:
+                            if it in RequiredPara or it == "name":
+                                continue
+                            l.append(it+" = "+sub.get(it))
+                        Surge3 += sub.get("name")+" = "+", ".join(l)+"\n"
+        elif elem.tag == "ProxyGroup":
+            RequiredPara = ("name", "type")
+            for sub in elem:
+                if sub.tag == "comment":
+                    Surge3 += sub.text+"\n"
+                else:
+                    l = list()
+                    l.append(sub.get("type"))
+                    for it in sub:
+                        if it .tag == "policy-path":
+                            l.append("policy-path = "+it.text)
+                        else:
+                            l.append(it.text)
+                    for it in sub.attrib:
+                        if it in RequiredPara:
+                            continue
+                        l.append(it+" = "+sub.get(it))
+                    Surge3 += sub.get("name")+" = "+", ".join(l)+"\n"
+        elif elem.tag == "Rule":
+            for sub in elem:
+                if sub.tag == "comment":
+                    Surge3 += sub.text+"\n"
+                elif sub.tag == "FINAL":
+                    Surge3 += sub.tag+", "+sub.get("policy")
+                    if "dns-failed" in sub.attrib and sub.attrib["dns-failed"] == "true":
+                        Surge3 += ", dns-failed"
+                    Surge3 += "\n"
+                else:
+                    Surge3 += sub.tag+", " + \
+                        sub.get("match")+", "+sub.get("policy")+"\n"
+        elif elem.tag == "Host":
+            for sub in elem:
+                if sub.tag == "comment":
+                    Surge3 += sub.text+"\n"
+                else:
+                    Surge3 += sub.get("key")+" = "+sub.get("value")+"\n"
+        elif elem.tag == "URLRewrite":
+            Type_Correspond = {"Type_302": "302", "Type_reject": "reject",
+                               "Type_header": "header", "Type_307": "307"}
+            for sub in elem:
+                if sub.tag == "comment":
+                    Surge3 += sub.text+"\n"
+                else:
+                    Surge3 += sub.get("regex")+" "+sub.get("replace") + \
+                        " "+Type_Correspond[sub.tag]+"\n"
+        elif elem.tag == "HeaderRewrite":
+            Type_Correspond = {"Type_header-replace": "header-replace",
+                               "Type_header-add": "header-add", "Type_header-del": "header-del"}
+            for sub in elem:
+                if sub.tag == "comment":
+                    Surge3 += sub.text+"\n"
+                else:
+                    Surge3 += sub.get("regex")+" "+Type_Correspond[sub.tag]+" "+sub.get(
+                        "field")+" "+sub.get("value")+"\n"
+        elif elem.tag == "MITM":
+            for sub in elem:
+                Surge3 += sub.tag+" = "+sub.text+"\n"
+    return Surge3
