@@ -3,10 +3,10 @@ import re
 import requests
 from flask import Flask, Response, make_response, request
 
-import ConfigOperation.GetUrlContent
-import ConfigOperation.Surge3LikeConfig2XML
-import ConfigOperation.XML2Surge3
-from main import Surge3Expand
+import XmlOperation.GetUrlContent
+import XmlOperation.Surge3LikeConfig2XML
+import XmlOperation.XML2Surge3
+from main import Surge3
 
 app = Flask(__name__)
 
@@ -22,7 +22,7 @@ def main():
         #flask.Flask.make_response>`.
         `make_response <http://flask.pocoo.org/docs/1.0/api/
     """
-    response = Surge3Expand(request)
+    response = Surge3(request)
     return response
 
 
