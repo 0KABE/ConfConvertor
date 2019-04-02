@@ -71,16 +71,22 @@ def GetHostElement(line):
     return element
 
 
-def GetRuleElement(line):
+def GetRuleElement(line, policy_name=None):
     l = line.split(",")
     element = ET.Element(l[0].replace(" ", ""))
     if element.tag == "FINAL":
-        element.set("policy", l[1])
+        if policy_name == None:
+            element.set("policy", l[1])
+        else:
+            element.set("policy", policy_name)
         if "dns-failed" in l:
             element.set("dns-failed", "true")
     else:
-        element.set("match", l[1])
-        element.set("policy", l[2])
+        element.set("match", l[1].strip())
+        if policy_name == None:
+            element.set("policy", l[2])
+        else:
+            element.set("policy", policy_name)
     return element
 
 
@@ -117,10 +123,14 @@ def Content2XML(content):
         line = line.strip("\n")
         # 类型关键词
         if line in TypeKeywords:
+            TypeIndex = {"General": "1", "Replica": "2", "Proxy": "3", "ProxyGroup": "4", "Rule": "5",
+                         "Host": "6", "URLRewrite": "7", "HeaderRewrite": "8", "SSIDSetting": "9", "MITM": "10"}
             line = line.strip("[")
             line = line.strip("]")
             line = line.replace(" ", "")
-            root.append(ET.Element(line))
+            sub = ET.Element(line)
+            sub.set("index", TypeIndex[line])
+            root.append(sub)
             CurElement = root.find(line)
         # 备注
         elif line.startswith(CommentKeywords):
@@ -151,8 +161,11 @@ def Content2XML(content):
     # # tree.write("test.xml", xml_declaration="true", encoding="utf-8")
     # result = xml.dom.minidom.parseString(
     #     ET.tostring(root)).toprettyxml()
+    # open("Private_Demo.xml", "w", encoding="utf-8").write(result)
     # print(result)
-    return ET.tostring(root)
+
+    # return ET.tostring(root)
+    return root
 
 # if __name__ == "__main__":
 #     tree = ET.ElementTree(root)

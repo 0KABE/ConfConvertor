@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ET
 import requests
-from ConfigOperation.Surge3LikeConfig2XML import GetProxyElement
-from ConfigOperation.GetUrlContent import GetUrls
+from XmlOperation.Surge3LikeConfig2XML import GetProxyElement
+from XmlOperation.GetUrlContent import GetUrls
 
 
 def NotExpand(root):

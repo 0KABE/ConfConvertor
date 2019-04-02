@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 
 import aiohttp
 
-from ConfigOperation.Surge3LikeConfig2XML import GetProxyElement
+from XmlOperation.Surge3LikeConfig2XML import GetProxyElement
 
 result = {}
 
