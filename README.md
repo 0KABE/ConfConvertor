@@ -51,7 +51,7 @@ url:将Surge3的配置文件从url下载下来，将RULE-SET，Policy-Path进行
 URL:https://asia-east2-trans-filament-233005.cloudfunctions.net/surge3  
 支持的参数：url(必须），filename（非必须），interval（非必须），strict（非必须）
 
-url:代转换的类Surge3Pro配置  
-filename：返回的配置文件名称（默认返回Config.conf）
-interval：托管配置的更新间隔（默认86400s）
+url: 待转换的类Surge3Pro配置url地址  
+filename：返回的配置文件名称（默认返回Config.conf）  
+interval：托管配置的更新间隔（默认86400s）  
 strict：（true/false）  在更新间隔到达时是否强制更新，如果为false则在更新失败后依旧使用原来的托管配置
