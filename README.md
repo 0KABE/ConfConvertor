@@ -108,7 +108,7 @@ interval：托管配置的更新间隔（默认86400s）
 strict：（true/false）  在更新间隔到达时是否强制更新，如果为false则在更新失败后依旧使用原来的托管配置
 
 ## Clash
-URL:https://asia-east2-trans-filament-233005.cloudfunctions.net/clash
+URL:https://asia-east2-trans-filament-233005.cloudfunctions.net/clash  
 参数：url（必须），filename（非必须）
 
 url: 待转换的类Surge3Pro配置url地址  
