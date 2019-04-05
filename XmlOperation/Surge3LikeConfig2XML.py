@@ -87,6 +87,9 @@ def GetRuleElement(line, policy_name=None):
             element.set("policy", l[2])
         else:
             element.set("policy", policy_name)
+        if "no-resolve" in l:
+            element.set("no-resolve", "true")
+
     return element
 
 
