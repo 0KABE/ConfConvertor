@@ -4,6 +4,8 @@ from flask import Response
 from flask import make_response
 import requests
 import re
+import xml.etree.ElementTree as ET
+from XmlOperation.ToClash import ToClash
 
 app = Flask(__name__)
 
@@ -193,7 +195,7 @@ def Surge3ToClash(content):
 @app.route('/', methods=['GET', 'POST'])
 # Cloud Function: def main(request):
 # Local debug: def main():
-def main(request):
+def main():
     """Responds to any HTTP request.
     Args:
         request (flask.Request): HTTP request object.
@@ -203,11 +205,11 @@ def main(request):
         #flask.Flask.make_response>`.
         `make_response <http://flask.pocoo.org/docs/1.0/api/
     """
-    url = request.args.get('url')
-    content = requests.get(url).content
-    content = bytes.decode(content)
-    response = make_response(Surge3ToClash(content))
-    response.headers["Content-Disposition"] = "attachment; filename=config.yml"
+    root = ET.parse("Private_Demo.xml", "r")
+    result = ToClash(root)
+
+    response = make_response(result)
+    response.headers["Content-Disposition"] = "attachment; filename=Test.yml"
     return response
 
 

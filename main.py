@@ -1,3 +1,8 @@
+# Delete before merge it to master branch
+import xml.dom.minidom
+import xml.etree.ElementTree as ET
+#####
+
 import requests
 from flask import make_response, request
 
@@ -25,10 +30,21 @@ def Surge3(request):
     url = request.args.get('url')
     filename = request.args.get("filename", "Config.conf")
     content = requests.get(url).text
-    xml = Content2XML(content)
-    if NeedExpandPolicyPath(xml):
-        xml = ExpandPolicyPath(xml)
-    result = ToSurge3(xml)
+    x = Content2XML(content)
+    if NeedExpandPolicyPath(x):
+        x = ExpandPolicyPath(x)
+    # Delete before merge it to master branch
+    x = ExpandRuleSet(x)
+    #########
+    
+    result = ToSurge3(x)
+
+    # Delete before merge it to master branch
+    result = xml.dom.minidom.parseString(
+        ET.tostring(x)).toprettyxml()
+    open("Private_Demo.xml", "w", encoding="utf-8").write(result)
+    #########
+
     response = make_response(result)
     response.headers["Content-Disposition"] = "attachment; filename="+filename
     return response
