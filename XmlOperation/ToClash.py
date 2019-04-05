@@ -1,4 +1,5 @@
 import xml.etree.ElementTree as ET
+
 import yaml
 
 conf = {"port": 7890,
@@ -28,11 +29,15 @@ ProxyGroupInfo = ["url", "interval"]
 
 Replace = {}
 
+AllowBuiltIn = ["DIRECT", "REJECT"]
+AllowRuleTag = ["DOMAIN-SUFFIX", "DOMAIN-KEYWORD",
+                "DOMAIN", "IP-CIDR", "SOURCE-IP-CIDR", "GEOIP", "FINAL"]
+
 
 def ToClash(root):
     for elem in root.find("Proxy"):
         if elem.tag == "Built-in":
-            Replace[elem.get("name")] = elem.get("policy")
+            Replace[elem.get("name")] = elem.get("policy").upper()
         else:
             dic = {}
             for attrib in ProxyInfo:
@@ -47,7 +52,8 @@ def ToClash(root):
         proxies = []
         for it in elem:
             if it.text in Replace:
-                proxies.append(Replace[it.text])
+                if Replace[it.text] in AllowBuiltIn:
+                    proxies.append(Replace[it.text])
             else:
                 proxies.append(it.text)
         dic["proxies"] = proxies
@@ -55,7 +61,7 @@ def ToClash(root):
         dic["interval"] = elem.get("interval", "600")
         conf["Proxy Group"].append(dic)
     for elem in root.find("Rule"):
-        if elem.tag == "comment":
+        if elem.tag == "comment" or elem.tag not in AllowRuleTag:
             continue
         if elem.tag == "FINAL":
             l = "MATCH, "+elem.get("policy")
@@ -63,10 +69,7 @@ def ToClash(root):
             l = elem.tag+", "+elem.get("match")+", "+elem.get("policy")
         conf["Rule"].append(l)
 
-    print("Hello World")
-    f = open("Conf.yml", "w")
-    yaml.dump(conf, f)
-    return conf
+    return yaml.dump(conf)
 
 
 if __name__ == "__main__":
