@@ -27,9 +27,9 @@ def Surge3(request):
     interval = request.args.get("interval", "86400")
     strict = request.args.get("strict", "false")
     content = requests.get(url).text
-    result = "#!MANAGED-CONFIG https://asia-east2-trans-filament-233005.cloudfunctions.net/surge3?url=" + \
-        url+"&interval="+interval+"&strict="+strict + \
-            " interval="+interval+" strict="+strict+"\n"
+    result = "#!MANAGED-CONFIG https://asia-east2-trans-filament-233005.cloudfunctions.net/surge3?url=" + url + \
+        "&filename="+filename+"&interval="+interval+"&strict=" + \
+        strict + " interval="+interval+" strict="+strict+"\n"
     xml = Content2XML(content)
     if NeedExpandPolicyPath(xml):
         xml = ExpandPolicyPath(xml)
