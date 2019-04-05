@@ -24,11 +24,16 @@ def Surge3(request):
     """
     url = request.args.get('url')
     filename = request.args.get("filename", "Config.conf")
+    interval = request.args.get("interval", "86400")
+    strict = request.args.get("strict", "false")
     content = requests.get(url).text
+    result = "#!MANAGED-CONFIG https://asia-east2-trans-filament-233005.cloudfunctions.net/surge3?url=" + \
+        url+"&interval="+interval+"&strict="+strict + \
+            " interval="+interval+" strict="+strict+"\n"
     xml = Content2XML(content)
     if NeedExpandPolicyPath(xml):
         xml = ExpandPolicyPath(xml)
-    result = ToSurge3(xml)
+    result += ToSurge3(xml)
     response = make_response(result)
     response.headers["Content-Disposition"] = "attachment; filename="+filename
     return response
