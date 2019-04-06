@@ -42,7 +42,11 @@ def ToClash(root):
             dic = {}
             for attrib in ProxyInfo:
                 if attrib in elem.attrib:
-                    dic[ProxyInfo[attrib]] = elem.get(attrib)
+                    if attrib == "type" and elem.get(attrib) == "custom":
+                        value = "ss"
+                    else:
+                        value = elem.get(attrib)
+                    dic[ProxyInfo[attrib]] = value
             conf["Proxy"].append(dic)
 
     for elem in root.findall("ProxyGroup/policy"):

@@ -21,7 +21,8 @@ def GetReplicaElement(line):
 
 
 def GetProxyElement(line):
-    Info_Correspond = ("type", "server", "port")
+    Info_Correspond = {"ss": ("type", "server", "port", "encrypt-method", "password"),
+                       "custom": ("type", "server", "port", "encrypt-method", "password", "module")}
     l = line.split("=", 1)
     if l[1].find(",") == -1:
         element = ET.Element("Built-in")
@@ -31,12 +32,10 @@ def GetProxyElement(line):
         element = ET.Element("External")
         element.set("name", l[0].strip())
         info = l[1].split(",")
-        for i in range(len(info)):
-            if i < 3:
-                element.set(Info_Correspond[i], info[i].strip())
-            else:
-                option = info[i].split("=")
-                element.set(option[0].strip(), option[1].strip())
+        ProxyType = info[0].strip()
+        for i in range(len(Info_Correspond[ProxyType])):
+            element.set(Info_Correspond[ProxyType]
+                        [i], info[i].split("=")[-1].strip())
     return element
 
 
@@ -139,7 +138,8 @@ def Content2XML(content):
         elif line.startswith(CommentKeywords):
             temp = ET.Element("comment")
             temp.text = line
-            CurElement.append(temp)
+            if not line.startswith("#!MANAGED-CONFIG"):
+                CurElement.append(temp)
         # 排除空行或者只有空白符
         elif line != "" and not line.isspace():
             if CurElement.tag == "General":

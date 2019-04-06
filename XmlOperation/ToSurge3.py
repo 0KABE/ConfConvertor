@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET
 
+
 def ToSurge3(root):
     """
     Args:
@@ -12,7 +13,11 @@ def ToSurge3(root):
     Surge3 = ""
     KeyWordsCorrespond = {"General": "[General]", "Replica": "[Replica]", "Proxy": "[Proxy]", "ProxyGroup": "[Proxy Group]", "Rule": "[Rule]",
                           "Host": "[Host]", "URLRewrite": "[URL Rewrite]", "HeaderRewrite": "[Header Rewrite]", "SSIDSetting": "[SSID Setting]", "MITM": "[MITM]"}
+    ProxyTypeAttrib = {"ss": {"type": "", "server": "", "port": "", "encrypt-method": "encrypt-method=", "password": "password="},
+                       "custom": {"type": "", "server": "", "port": "", "encrypt-method": "", "password": "", "module": ""}}
     for elem in root:
+        if elem.tag == "comment":
+            continue
         Surge3 += KeyWordsCorrespond[elem.tag]+"\n"
         if elem.tag == "General":
             for sub in elem:
@@ -27,21 +32,18 @@ def ToSurge3(root):
                 else:
                     Surge3 += sub.tag+" = "+sub.text+"\n"
         elif elem.tag == "Proxy":
-            RequiredPara = ("type", "server", "port")
             for sub in elem:
                 if sub.tag == "comment":
                     Surge3 += sub.text+"\n"
                 elif sub.tag == "Built-in":
                     Surge3 += sub.get("name")+" = "+sub.get("policy")+"\n"
                 else:
-                    if sub.get("type") == "ss":
+                    ProxyType = sub.get("type")
+                    if sub.get("type") in ProxyTypeAttrib:
                         l = list()
-                        for it in RequiredPara:
-                            l.append(sub.get(it))
-                        for it in sub.attrib:
-                            if it in RequiredPara or it == "name":
-                                continue
-                            l.append(it+" = "+sub.get(it))
+                        for key in ProxyTypeAttrib[ProxyType]:
+                            l.append(
+                                ProxyTypeAttrib[ProxyType][key]+sub.get(key))
                         Surge3 += sub.get("name")+" = "+", ".join(l)+"\n"
         elif elem.tag == "ProxyGroup":
             RequiredPara = ("name", "type")

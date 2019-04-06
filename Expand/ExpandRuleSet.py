@@ -54,12 +54,13 @@ def GetKey(elem):
 
 def ExpandRuleSet(root):
     urls = set()
+    url_dict = {}
     for elem in root.findall("Rule/RULE-SET"):
         url = elem.get("match")
         if url not in InternalRule:
             urls.add(elem.get("match"))
-
-    url_dict = GetUrls(urls)
+    if urls:
+        url_dict = GetUrls(urls)
     url_dict["SYSTEM"] = InternalRule["SYSTEM"]
     url_dict["LAN"] = InternalRule["LAN"]
     # parent = root.find("Rule")
