@@ -113,3 +113,10 @@ URL:https://asia-east2-trans-filament-233005.cloudfunctions.net/clash
 
 url: 待转换的类Surge3Pro配置url地址  
 filename：返回的配置文件名称（默认返回Config.yml）  
+
+# 使用方法(demo):  
+因为API需要一个url参数来获取类Surge配置文件，因此一种方法是使用GitHub私有gist来远程存放链接  
+例如， 现在的远程链接： https://gist.githubusercontent.com/0KABE/1f448c7b26db7a3c5830a40f33021e8f/raw/DEMO.conf
+则：
+在Surge3Pro中的托管链接为：https://asia-east2-trans-filament-233005.cloudfunctions.net/surge3?url=https://gist.githubusercontent.com/0KABE/1f448c7b26db7a3c5830a40f33021e8f/raw/DEMO.conf
+在Clash中的托管链接为：https://asia-east2-trans-filament-233005.cloudfunctions.net/clash?https://gist.githubusercontent.com/0KABE/1f448c7b26db7a3c5830a40f33021e8f/raw/DEMO.conf
