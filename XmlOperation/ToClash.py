@@ -61,8 +61,9 @@ def ToClash(root):
             else:
                 proxies.append(it.text)
         dic["proxies"] = proxies
-        dic["url"] = elem.get("url", "http://www.gstatic.com/generate_204")
-        dic["interval"] = elem.get("interval", "600")
+        if elem.get("type")!="select":
+            dic["url"] = elem.get("url", "http://www.gstatic.com/generate_204")
+            dic["interval"] = elem.get("interval", "600")
         conf["Proxy Group"].append(dic)
     for elem in root.find("Rule"):
         if elem.tag == "comment" or elem.tag not in AllowRuleTag:
