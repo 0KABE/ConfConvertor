@@ -13,7 +13,7 @@ def ToSurge3(root):
     Surge3 = ""
     KeyWordsCorrespond = {"General": "[General]", "Replica": "[Replica]", "Proxy": "[Proxy]", "ProxyGroup": "[Proxy Group]", "Rule": "[Rule]",
                           "Host": "[Host]", "URLRewrite": "[URL Rewrite]", "HeaderRewrite": "[Header Rewrite]", "SSIDSetting": "[SSID Setting]", "MITM": "[MITM]"}
-    ProxyTypeAttrib = {"ss": {"type": "", "server": "", "port": "", "encrypt-method": "encrypt-method=", "password": "password="},
+    ProxyTypeAttrib = {"ss": {"type": "", "server": "", "port": "", "encrypt-method": "encrypt-method=", "password": "password=", "obfs": "obfs=", "tfo": "tfo=", "udp-relay": "udp-relay="},
                        "custom": {"type": "", "server": "", "port": "", "encrypt-method": "", "password": "", "module": ""}}
     for elem in root:
         if elem.tag == "comment":
@@ -42,8 +42,9 @@ def ToSurge3(root):
                     if sub.get("type") in ProxyTypeAttrib:
                         l = list()
                         for key in ProxyTypeAttrib[ProxyType]:
-                            l.append(
-                                ProxyTypeAttrib[ProxyType][key]+sub.get(key))
+                            if key in sub.attrib:
+                                l.append(
+                                    ProxyTypeAttrib[ProxyType][key]+sub.get(key))
                         Surge3 += sub.get("name")+" = "+", ".join(l)+"\n"
         elif elem.tag == "ProxyGroup":
             RequiredPara = ("name", "type")

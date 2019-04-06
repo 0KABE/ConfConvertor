@@ -21,7 +21,7 @@ def GetReplicaElement(line):
 
 
 def GetProxyElement(line):
-    Info_Correspond = {"ss": ("type", "server", "port", "encrypt-method", "password"),
+    Info_Correspond = {"ss": ("type", "server", "port", "encrypt-method", "password", "obfs", "tfo", "udp-relay"),
                        "custom": ("type", "server", "port", "encrypt-method", "password", "module")}
     l = line.split("=", 1)
     if l[1].find(",") == -1:
@@ -33,7 +33,7 @@ def GetProxyElement(line):
         element.set("name", l[0].strip())
         info = l[1].split(",")
         ProxyType = info[0].strip()
-        for i in range(len(Info_Correspond[ProxyType])):
+        for i in range(len(info)):
             element.set(Info_Correspond[ProxyType]
                         [i], info[i].split("=")[-1].strip())
     return element
