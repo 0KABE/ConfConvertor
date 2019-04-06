@@ -21,7 +21,8 @@ def ExpandPolicyPath(root):
         for it in parent.iter("policy-path"):
             urls.append(it.text)
             # result[it.text] = ""
-    result = GetUrls(urls)
+    if urls:
+        result = GetUrls(urls)
     # for it in result.keys():
     #     print("Downloading: "+it)
     #     result[it] = requests.get(it).content.decode()

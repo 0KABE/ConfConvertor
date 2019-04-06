@@ -98,8 +98,12 @@ def ToSurge3(root):
                 if sub.tag == "comment":
                     Surge3 += sub.text+"\n"
                 else:
-                    Surge3 += sub.get("regex")+" "+Type_Correspond[sub.tag]+" "+sub.get(
-                        "field")+" "+sub.get("value")+"\n"
+                    if sub.tag == "Type_header-del":
+                        Surge3 += sub.get("regex")+" "+Type_Correspond[sub.tag]+" "+sub.get(
+                            "field")+"\n"
+                    else:
+                        Surge3 += sub.get("regex")+" "+Type_Correspond[sub.tag]+" "+sub.get(
+                            "field")+" "+sub.get("value")+"\n"
         elif elem.tag == "MITM":
             for sub in elem:
                 Surge3 += sub.tag+" = "+sub.text+"\n"
