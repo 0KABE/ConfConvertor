@@ -2,17 +2,6 @@ import xml.etree.ElementTree as ET
 
 import yaml
 
-conf = {"port": 7890,
-        "socks-port": 7891,
-        "allow-lan": False,
-        "mode": "Rule",
-        "log-level": "info",
-        "external-controller": '0.0.0.0:9090',
-        "secret": "",
-        "Proxy": [],
-        "Proxy Group": [],
-        "Rule": []
-        }
 
 ProxyInfo = {
     "name": "name",
@@ -27,7 +16,6 @@ ProxyInfo = {
 
 ProxyGroupInfo = ["url", "interval"]
 
-Replace = {}
 
 AllowBuiltIn = ["DIRECT", "REJECT"]
 AllowRuleTag = ["DOMAIN-SUFFIX", "DOMAIN-KEYWORD",
@@ -35,6 +23,18 @@ AllowRuleTag = ["DOMAIN-SUFFIX", "DOMAIN-KEYWORD",
 
 
 def ToClash(root):
+    Replace = {}
+    conf = {"port": 7890,
+            "socks-port": 7891,
+            "allow-lan": False,
+            "mode": "Rule",
+            "log-level": "info",
+            "external-controller": '0.0.0.0:9090',
+            "secret": "",
+            "Proxy": [],
+            "Proxy Group": [],
+            "Rule": []
+            }
     for elem in root.find("Proxy"):
         if elem.tag == "Built-in":
             Replace[elem.get("name")] = elem.get("policy").upper()
@@ -61,7 +61,7 @@ def ToClash(root):
             else:
                 proxies.append(it.text)
         dic["proxies"] = proxies
-        if elem.get("type")!="select":
+        if elem.get("type") != "select":
             dic["url"] = elem.get("url", "http://www.gstatic.com/generate_204")
             dic["interval"] = elem.get("interval", "600")
         conf["Proxy Group"].append(dic)

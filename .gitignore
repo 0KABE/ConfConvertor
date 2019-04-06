@@ -1,5 +1,5 @@
 *.conf
-Private_Demo.xml
+*.xml
 test.py
 *.pyc
 *.yml
