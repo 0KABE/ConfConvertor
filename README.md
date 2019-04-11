@@ -109,10 +109,11 @@ strict：（true/false）  在更新间隔到达时是否强制更新，如果�
 
 ## Clash
 URL:https://asia-east2-trans-filament-233005.cloudfunctions.net/clash  
-参数：url（必须），filename（非必须）
+参数：url（必须），filename（非必须），snippet（非必须）  
 
 url: 待转换的类Surge3Pro配置url地址  
 filename：返回的配置文件名称（默认返回Config.yml）  
+snippet：为clash配置附加额外的参数（例如DNS）参数格式为yaml格式（同Clash）  
 
 # 使用方法(demo):  
 因为API需要一个url参数来获取类Surge配置文件，因此一种方法是使用GitHub私有gist来远程存放链接  

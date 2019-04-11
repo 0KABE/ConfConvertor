@@ -2,6 +2,7 @@ import xml.etree.ElementTree as ET
 
 import yaml
 
+from XmlOperation.Snippet import AddSnippet
 
 ProxyInfo = {
     "name": "name",
@@ -22,7 +23,7 @@ AllowRuleTag = ["DOMAIN-SUFFIX", "DOMAIN-KEYWORD",
                 "DOMAIN", "IP-CIDR", "SOURCE-IP-CIDR", "GEOIP", "FINAL"]
 
 
-def ToClash(root):
+def ToClash(root, snippet=None):
     Replace = {}
     conf = {"port": 7890,
             "socks-port": 7891,
@@ -73,6 +74,10 @@ def ToClash(root):
         else:
             l = elem.tag+", "+elem.get("match")+", "+elem.get("policy")
         conf["Rule"].append(l)
+
+    # add snippet
+    if snippet:
+        conf = AddSnippet(snippet, conf)
 
     return yaml.dump(conf)
 

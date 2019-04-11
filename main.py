@@ -49,13 +49,14 @@ def Surge3(request):
 def Clash(request):
     url = request.args.get('url')
     filename = request.args.get("filename", "Config.yml")
-    content = requests.get(url).text
-    x = Content2XML(content)
+    snippet = request.args.get("snippet")
+    url_text = requests.get(url).text
+    x = Content2XML(url_text)
     x = ExpandPolicyPath(x)
     x = ExpandRuleSet(x)
     x = TopologicalSort(x)
 
-    result = ToClash(x)
+    result = ToClash(x, snippet)
 
     response = make_response(result)
     response.headers["Content-Disposition"] = "attachment; filename="+filename
