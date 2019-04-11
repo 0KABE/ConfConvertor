@@ -36,6 +36,11 @@ def ToClash(root, snippet=None):
             "Proxy Group": [],
             "Rule": []
             }
+
+    # add snippet
+    if snippet:
+        conf = AddSnippet(snippet, conf)
+
     for elem in root.find("Proxy"):
         if elem.tag == "Built-in":
             Replace[elem.get("name")] = elem.get("policy").upper()
@@ -74,10 +79,6 @@ def ToClash(root, snippet=None):
         else:
             l = elem.tag+", "+elem.get("match")+", "+elem.get("policy")
         conf["Rule"].append(l)
-
-    # add snippet
-    if snippet:
-        conf = AddSnippet(snippet, conf)
 
     return yaml.dump(conf)
 
