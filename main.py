@@ -35,11 +35,12 @@ def Surge3(request):
     result = "#!MANAGED-CONFIG https://asia-east2-trans-filament-233005.cloudfunctions.net/surge3?url=" + url + \
         "&filename="+filename+"&interval="+interval+"&strict=" + \
         strict + " interval="+interval+" strict="+strict+"\n"
-    x = Content2XML(content)
+    remove_load_balance = set()
+    x = Content2XML(content, remove_load_balance)
     if NeedExpandPolicyPath(x):
         x = ExpandPolicyPath(x)
 
-    result += ToSurge3(x)
+    result += ToSurge3(x, remove_load_balance)
 
     response = make_response(result)
     response.headers["Content-Disposition"] = "attachment; filename="+filename

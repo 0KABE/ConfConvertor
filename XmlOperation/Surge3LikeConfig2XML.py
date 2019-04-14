@@ -44,13 +44,15 @@ def GetProxyElement(line):
     return element
 
 
-def GetProxyGroupElement(line):
+def GetProxyGroupElement(line, remove=None):
     l = line.split("=", 1)
     values = l[1].split(",")
     element = ET.Element("policy")
     element.set("name", l[0].strip())
     for i in range(len(values)):
         if i == 0:
+            if type(remove) == set and values[i].strip() == "load-balance":
+                remove.add(element.get("name"))
             element.set("type", values[i].strip())
         elif values[i].find("=") != -1:
             option = values[i].split("=", 1)
@@ -123,7 +125,7 @@ def GetMITMElement(line):
     return element
 
 
-def Content2XML(content):
+def Content2XML(content, remove=None):
     # f = open("OKAB3.conf", "r", encoding="utf-8")
     root = ET.Element("config")
     CurElement = root
@@ -155,7 +157,7 @@ def Content2XML(content):
             elif CurElement.tag == "Proxy":
                 CurElement.append(GetProxyElement(line))
             elif CurElement.tag == "ProxyGroup":
-                CurElement.append(GetProxyGroupElement(line))
+                CurElement.append(GetProxyGroupElement(line, remove))
             elif CurElement.tag == "Rule":
                 CurElement.append(GetRuleElement(line))
             elif CurElement.tag == "Host":

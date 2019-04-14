@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ET
 
 
-def ToSurge3(root):
+def ToSurge3(root, remove=None):
     """
     Args:
         root(xml.etree.ElementTree.Element): the root element of the xml
@@ -52,9 +52,13 @@ def ToSurge3(root):
                 if sub.tag == "comment":
                     Surge3 += sub.text+"\n"
                 else:
+                    if sub.get("name") in remove:
+                        continue
                     l = list()
                     l.append(sub.get("type"))
                     for it in sub:
+                        if it.text in remove:
+                            continue
                         if it .tag == "policy-path":
                             l.append("policy-path = "+it.text)
                         else:

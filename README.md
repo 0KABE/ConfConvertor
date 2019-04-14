@@ -121,3 +121,12 @@ snippet：为clash配置附加额外的参数（例如DNS）参数格式为yaml�
 则：  
 在Surge3Pro中的托管链接为：https://asia-east2-trans-filament-233005.cloudfunctions.net/surge3?url=https://gist.githubusercontent.com/0KABE/1f448c7b26db7a3c5830a40f33021e8f/raw/DEMO.conf  
 在Clash中的托管链接为：https://asia-east2-trans-filament-233005.cloudfunctions.net/clash?https://gist.githubusercontent.com/0KABE/1f448c7b26db7a3c5830a40f33021e8f/raw/DEMO.conf
+
+# 感谢:  
+* Shiro  
+
+# 打赏:  
+#吱口令#长按复制此条消息，打开支付宝给我转账ijL3kr36HM
+
+# Telegram：  
+https://t.me/Rin_OKAB3
