@@ -20,6 +20,7 @@
 
 ## API: Surge3介绍：  
 相比与Surge3Expand 新的API Surge3不在默认将policy-path, RULE-SET 全部展开  
+**去除load-balance**  
 
 在Surge3Pro中，不支持policy-path与其他policy-path混用或policy-path与其他策略组混用  
 即如果需要使用policy-path来远程下载节点信息，则该策略组将只允许一个policy-path  
@@ -33,6 +34,7 @@ policy3 = select, policy-path=www.example.com/path/file1.list, policy-path=www.e
 如果策略组中没有存在上述的情况，保留policy-path交给Surge3展开总是更好的
 
 ## API: Clash介绍：  
+**支持load-balance**  
 在Clash中，靠后的策略组中包含的策略组必须位于该策略组前面，而Surge中则没有这个限制，可以任意排序。  
 在这个API中，Clash将会通过排序来使得策略组的顺序满足Clash的要求。
 例如：  
