@@ -30,8 +30,10 @@ policy1 = select, policy-path=www.example.com/path/file.list  合法
 policy2 = select, policy-path=www.example.com/path/file.list, policy1  非法  
 policy3 = select, policy-path=www.example.com/path/file1.list, policy-path=www.example.com/path/file2.list  非法  
 ```
-现在，API Surge3将会判断策略组中是否存在上述的情况，若存在上述的在Surge中非法的情况，才会对所有policy-path进行展开  
-如果策略组中没有存在上述的情况，保留policy-path交给Surge3展开总是更好的
+~~现在，API Surge3将会判断策略组中是否存在上述的情况，若存在上述的在Surge中非法的情况，才会对所有policy-path进行展开  
+如果策略组中没有存在上述的情况，保留policy-path交给Surge3展开总是更好的~~  
+**因为Surge3托管文件不能手动更新PolicyPath  
+现在API Surge3 将会直接将policypath展开**
 
 ## API: Clash介绍：  
 **支持load-balance**  
@@ -128,7 +130,8 @@ snippet：为clash配置附加额外的参数（例如DNS）参数格式为yaml�
 * Shiro  
 
 # 打赏:  
+```
 #吱口令#长按复制此条消息，打开支付宝给我转账ijL3kr36HM
-
+```
 # Telegram：  
 https://t.me/Rin_OKAB3

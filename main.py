@@ -37,8 +37,7 @@ def Surge3(request):
         strict + " interval="+interval+" strict="+strict+"\n"
     remove_load_balance = set()
     x = Content2XML(content, remove_load_balance)
-    if NeedExpandPolicyPath(x):
-        x = ExpandPolicyPath(x)
+    x = ExpandPolicyPath(x)
 
     result += ToSurge3(x, remove_load_balance)
 
