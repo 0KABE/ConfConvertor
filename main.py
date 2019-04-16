@@ -4,13 +4,13 @@ import xml.etree.ElementTree as ET
 import requests
 from flask import make_response, request
 
+from Clash.ToClash import ToClash
+from Clash.TopologicalSort import TopologicalSort
 from Expand.ExpandPolicyPath import ExpandPolicyPath
 from Expand.ExpandRuleSet import ExpandRuleSet
-from XmlOperation.CheckPolicyPath import NeedExpandPolicyPath
-from XmlOperation.Surge3LikeConfig2XML import Content2XML
-from XmlOperation.ToClash import ToClash
-from XmlOperation.TopologicalSort import TopologicalSort
-from XmlOperation.ToSurge3 import ToSurge3
+from Surge3.ToSurge3 import ToSurge3
+from Unite.CheckPolicyPath import NeedExpandPolicyPath
+from Unite.Surge3LikeConfig2XML import Content2XML
 
 
 def Surge3(request):

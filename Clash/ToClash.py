@@ -2,7 +2,8 @@ import xml.etree.ElementTree as ET
 
 import yaml
 
-from XmlOperation.Snippet import AddSnippet
+from . import Snippet
+from .Snippet import AddSnippet
 
 ProxyInfo = {
     "name": "name",

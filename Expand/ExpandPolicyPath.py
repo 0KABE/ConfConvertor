@@ -1,7 +1,8 @@
 import xml.etree.ElementTree as ET
 
-from XmlOperation.GetUrlContent import GetUrls
-from XmlOperation.Surge3LikeConfig2XML import GetProxyElement
+from Unite.Surge3LikeConfig2XML import GetProxyElement
+
+from .GetUrlContent import GetUrls
 
 
 def ExpandPolicyPath(root):

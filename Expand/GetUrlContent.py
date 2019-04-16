@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 
 import aiohttp
 
-from XmlOperation.Surge3LikeConfig2XML import GetProxyElement
+from Unite.Surge3LikeConfig2XML import GetProxyElement
 
 
 async def download(url, result):
