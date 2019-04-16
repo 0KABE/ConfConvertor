@@ -3,9 +3,6 @@ import re
 import requests
 from flask import Flask, Response, make_response, request
 
-import XmlOperation.GetUrlContent
-import XmlOperation.Surge3LikeConfig2XML
-import XmlOperation.XML2Surge3
 from main import Surge3
 
 app = Flask(__name__)
