@@ -103,7 +103,7 @@ URL:https://asia-northeast1-trans-filament-233005.cloudfunctions.net/Surge3ToCla
 url:将Surge3的配置文件从url下载下来，将RULE-SET，Policy-Path进行展开，转换成Clash支持的文件。
 
 ## Surge3
-URL:https://asia-east2-trans-filament-233005.cloudfunctions.net/surge3  
+URL:https://api.OKAB3.com/surge3  
 支持的参数：url(必须），filename（非必须），interval（非必须），strict（非必须）
 
 url: 待转换的类Surge3Pro配置url地址  
@@ -112,7 +112,7 @@ interval：托管配置的更新间隔（默认86400s）
 strict：（true/false）  在更新间隔到达时是否强制更新，如果为false则在更新失败后依旧使用原来的托管配置
 
 ## Clash
-URL:https://asia-east2-trans-filament-233005.cloudfunctions.net/clash  
+URL:https://api.OKAB3.com/clash  
 参数：url（必须），filename（非必须），snippet（非必须）  
 
 url: 待转换的类Surge3Pro配置url地址  
@@ -123,8 +123,8 @@ snippet：为clash配置附加额外的参数（例如DNS）参数格式为yaml�
 因为API需要一个url参数来获取类Surge配置文件，因此一种方法是使用GitHub私有gist来远程存放链接  
 例如， 现在的远程链接： https://gist.githubusercontent.com/0KABE/1f448c7b26db7a3c5830a40f33021e8f/raw/DEMO.conf  
 则：  
-在Surge3Pro中的托管链接为：https://asia-east2-trans-filament-233005.cloudfunctions.net/surge3?url=https://gist.githubusercontent.com/0KABE/1f448c7b26db7a3c5830a40f33021e8f/raw/DEMO.conf  
-在Clash中的托管链接为：https://asia-east2-trans-filament-233005.cloudfunctions.net/clash?https://gist.githubusercontent.com/0KABE/1f448c7b26db7a3c5830a40f33021e8f/raw/DEMO.conf
+在Surge3Pro中的托管链接为：https://api.OKAB3.com/surge3?url=https://gist.githubusercontent.com/0KABE/1f448c7b26db7a3c5830a40f33021e8f/raw/DEMO.conf  
+在Clash中的托管链接为：https://api.OKAB3.com/clash?https://gist.githubusercontent.com/0KABE/1f448c7b26db7a3c5830a40f33021e8f/raw/DEMO.conf
 
 # 感谢:  
 * Shiro  
