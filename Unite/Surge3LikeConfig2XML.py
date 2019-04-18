@@ -16,7 +16,7 @@ TypeKeywords = ("[General]", "[Replica]", "[Proxy]", "[Proxy Group]", "[Rule]",
                 "[Host]", "[URL Rewrite]", "[Header Rewrite]", "[SSID Setting]", "[MITM]")
 
 
-def Content2XML(content, remove=None):
+def Content2XML(content):
     # f = open("OKAB3.conf", "r", encoding="utf-8")
     root = ET.Element("config")
     CurElement = root
@@ -48,7 +48,7 @@ def Content2XML(content, remove=None):
             elif CurElement.tag == "Proxy":
                 CurElement.append(GetProxyElement(line))
             elif CurElement.tag == "ProxyGroup":
-                CurElement.append(GetProxyGroupElement(line, remove))
+                CurElement.append(GetProxyGroupElement(line))
             elif CurElement.tag == "Rule":
                 CurElement.append(GetRuleElement(line))
             elif CurElement.tag == "Host":
@@ -59,14 +59,9 @@ def Content2XML(content, remove=None):
                 CurElement.append(GetHeaderRewriteElement(line))
             elif CurElement.tag == "MITM":
                 CurElement.append(GetMITMElement(line))
-    # tree = ET.ElementTree(root)
-    # # tree.write("test.xml", xml_declaration="true", encoding="utf-8")
     # result = xml.dom.minidom.parseString(
     #     ET.tostring(root)).toprettyxml()
     # open("Private_Demo.xml", "w", encoding="utf-8").write(result)
-    # print(result)
-
-    # return ET.tostring(root)
     return root
 
 # if __name__ == "__main__":

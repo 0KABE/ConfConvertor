@@ -25,6 +25,7 @@ def TopologicalSort(root):
         if it.get("name") not in visit:
             result += dfs(root, it, visit)
     ProxyGroup[:] = result
-    result = xml.dom.minidom.parseString(
-        ET.tostring(root)).toprettyxml()
+    # result = xml.dom.minidom.parseString(
+    #     ET.tostring(root)).toprettyxml()
+    # print(result)
     return root

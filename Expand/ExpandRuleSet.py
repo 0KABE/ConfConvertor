@@ -1,9 +1,9 @@
-import xml.etree.ElementTree as ET
-import xml.dom.minidom
 import copy
+import xml.dom.minidom
+import xml.etree.ElementTree as ET
 
-from XmlOperation.GetUrlContent import GetUrls
-from XmlOperation.Surge3LikeConfig2XML import GetRuleElement
+from Expand.GetUrlContent import GetUrls
+from Unite.Surge3LikeConfig2XML import GetRuleElement
 
 CommentKeywords = ("#", ";", "//")
 InternalRule = {

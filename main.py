@@ -10,6 +10,7 @@ from Expand.ExpandPolicyPath import ExpandPolicyPath
 from Expand.ExpandRuleSet import ExpandRuleSet
 from Surge3.ToSurge3 import ToSurge3
 from Unite.CheckPolicyPath import NeedExpandPolicyPath
+from Unite.GetProxyGroupType import GetProxyGroupType
 from Unite.Surge3LikeConfig2XML import Content2XML
 
 
@@ -32,14 +33,14 @@ def Surge3(request):
     interval = request.args.get("interval", "86400")
     strict = request.args.get("strict", "false")
     content = requests.get(url).text
-    result = "#!MANAGED-CONFIG https://asia-east2-trans-filament-233005.cloudfunctions.net/surge3?url=" + url + \
+    result = "#!MANAGED-CONFIG https://api.OKAB3.com/surge3?url=" + url + \
         "&filename="+filename+"&interval="+interval+"&strict=" + \
         strict + " interval="+interval+" strict="+strict+"\n"
-    remove_load_balance = set()
-    x = Content2XML(content, remove_load_balance)
+    x = Content2XML(content)
     x = ExpandPolicyPath(x)
+    x = GetProxyGroupType(x)
 
-    result += ToSurge3(x, remove_load_balance)
+    result += ToSurge3(x)
 
     response = make_response(result)
     response.headers["Content-Disposition"] = "attachment; filename="+filename
