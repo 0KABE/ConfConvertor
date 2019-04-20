@@ -134,4 +134,4 @@ snippet：为clash配置附加额外的参数（例如DNS）参数格式为yaml�
 #吱口令#长按复制此条消息，打开支付宝给我转账ijL3kr36HM
 ```
 # Telegram：  
-https://t.me/Rin_OKAB3
+https://t.me/OKAB3Script  
