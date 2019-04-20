@@ -21,11 +21,11 @@ def Content2XML(content):
     root = ET.Element("config")
     CurElement = root
     for line in content.splitlines():
+        TypeIndex = {"comment": "0", "General": "1", "Replica": "2", "Proxy": "3", "ProxyGroup": "4", "Rule": "5",
+                     "Host": "6", "URLRewrite": "7", "HeaderRewrite": "8", "SSIDSetting": "9", "MITM": "10"}
         line = line.strip("\n")
         # 类型关键词
         if line in TypeKeywords:
-            TypeIndex = {"General": "1", "Replica": "2", "Proxy": "3", "ProxyGroup": "4", "Rule": "5",
-                         "Host": "6", "URLRewrite": "7", "HeaderRewrite": "8", "SSIDSetting": "9", "MITM": "10"}
             line = line.strip("[")
             line = line.strip("]")
             line = line.replace(" ", "")
@@ -37,6 +37,7 @@ def Content2XML(content):
         elif line.startswith(CommentKeywords):
             temp = ET.Element("comment")
             temp.text = line
+            temp.set("index", TypeIndex["comment"])
             if not line.startswith("#!MANAGED-CONFIG"):
                 CurElement.append(temp)
         # 排除空行或者只有空白符
