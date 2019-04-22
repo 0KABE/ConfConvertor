@@ -103,7 +103,8 @@ URL:https://api.OKAB3.com/clash
 URL:https://api.OKAB3.com/filter   
 | 参数 | 必须 | 描述 |
 | :- | :- | :- |
-| url | 是 | surge3节点list的url |
+| list | 是 | surge3节点list的url |
+| config | 是 | surge3托管链接 |
 | regex | 是 | 用于过滤的正则表达式 |
 
 # 使用方法(demo):  

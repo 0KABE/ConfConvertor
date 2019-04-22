@@ -67,7 +67,7 @@ def Clash(request):
 
 
 def Filter(request):
-    list_url = request.args.get("url")
+    list_url = request.args.get("list")
     config_url = request.args.get("config")
     regex = request.args.get("regex")
     if list_url:
