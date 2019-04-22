@@ -85,7 +85,7 @@ URL:https://api.OKAB3.com/surge3
 url | 是 | 待转换的类Surge3Pro配置url地址 | 无 |
 filename | 否 | 返回的配置文件名称 | Config.conf |
 interval | 否 | 托管配置的更新间隔(s) | 86400 |
-strict（true/false）| 否 |  在更新间隔到达时是否强制更新，如果为false则在更新失败后依旧使用原来的托管配置 | 无 |
+strict（true/false）| 否 |  在更新间隔到达时是否强制更新，如果为false则在更新失败后依旧使用原来的托管配置 | false |
 
 ## Clash
 URL:https://api.OKAB3.com/clash  
