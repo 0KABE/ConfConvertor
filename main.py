@@ -12,6 +12,7 @@ from Surge3.ToSurge3 import ToSurge3
 from Unite.CheckPolicyPath import NeedExpandPolicyPath
 from Unite.GetProxyGroupType import GetProxyGroupType
 from Unite.Surge3LikeConfig2XML import Content2XML
+from Filter.GetList import GetList
 
 
 def Surge3(request):
@@ -61,4 +62,14 @@ def Clash(request):
 
     response = make_response(result)
     response.headers["Content-Disposition"] = "attachment; filename="+filename
+    return response
+
+
+def Filter(request):
+    url = request.args.get("url")
+    regex = request.args.get("regex")
+    url_text = requests.get(url).content.decode()
+    result = GetList(url_text, regex)
+    response = make_response(result)
+    response.headers["Content-Disposition"] = "attachment; filename="+"Filter.list"
     return response
