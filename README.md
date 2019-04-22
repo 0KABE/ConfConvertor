@@ -105,6 +105,13 @@ URL:https://api.OKAB3.com/filter
 | list | 是 | surge3节点list的url |
 | conf | 是 | surge3托管链接 |
 | regex | 是 | 用于过滤的正则表达式 |
+**conf & list 只能同时存在一个！！！！！**
+
+| | |
+| :- | :- |
+| 过滤list | https://api.OKAB3.com/filter?list=你的list地址&regex=过滤用的正则表达式 |
+| 过滤surge3托管配置 | https://api.OKAB3.com/filter?conf=你的托管地址&regex=过滤用的正则表达式 |
+
 
 # 使用方法(demo):  
 因为API需要一个url参数来获取类Surge配置文件，因此一种方法是使用GitHub私有gist来远程存放链接  
