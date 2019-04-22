@@ -8,7 +8,7 @@
 可以实现一份配置文件同时支持Clash & Surge3
 
 ## API: Surge3介绍：  
-相比与Surge3Expand 新的API Surge3不在默认将policy-path, RULE-SET 全部展开  
+相比与Surge3Expand 新的API Surge3 ***~~不在~~*** 默认将policy-path, RULE-SET 全部展开  
 **去除load-balance**  
 
 在Surge3Pro中，不支持policy-path与其他policy-path混用或policy-path与其他策略组混用  
@@ -72,9 +72,6 @@ policy3 = select, policy-path=www.example.com/path/file1.list, policy-path=www.e
 * MITM
 * 等等
 
-
-
-
 **如果担心数据安全性等问题，可以选择在自己的服务器上搭建，源代码已经在代码库中给出**  
 **如果遇到BUG 或者 有好的Feature 欢迎提Issue**
 
@@ -106,7 +103,7 @@ URL:https://api.OKAB3.com/filter
 | 参数 | 必须 | 描述 |
 | :- | :- | :- |
 | list | 是 | surge3节点list的url |
-| config | 是 | surge3托管链接 |
+| conf | 是 | surge3托管链接 |
 | regex | 是 | 用于过滤的正则表达式 |
 
 # 使用方法(demo):  
@@ -124,4 +121,4 @@ URL:https://api.OKAB3.com/filter
 #吱口令#长按复制此条消息，打开支付宝给我转账ijL3kr36HM
 ```
 # Telegram：  
-https://t.me/OKAB3Script  
+https://t.me/OKAB3Scrip
