@@ -69,6 +69,7 @@ def Clash(request):
 def Filter(request):
     list_url = request.args.get("list")
     config_url = request.args.get("conf")
+    filename = request.args.get("filename", "Filter.list")
     regex = request.args.get("regex")
     if list_url:
         content = requests.get(list_url).content.decode()
@@ -77,5 +78,5 @@ def Filter(request):
         content = requests.get(config_url).content.decode()
         data = FromConfig(content, regex)
     response = make_response(data)
-    response.headers["Content-Disposition"] = "attachment; filename="+"Filter.list"
+    response.headers["Content-Disposition"] = "attachment; filename="+filename
     return response

@@ -100,11 +100,12 @@ URL:https://api.OKAB3.com/clash
 ## Filter
 URL:https://api.OKAB3.com/filter   
 
-| 参数 | 必须 | 描述 |
-| :- | :- | :- |
-| list | 是 | surge3节点list的url |
-| conf | 是 | surge3托管链接 |
-| regex | 是 | 用于过滤的正则表达式 |
+| 参数 | 必须 | 描述 | 缺省值 |
+| :- | :- | :- | :- |
+| list | 是 | surge3节点list的url | 无
+| conf | 是 | surge3托管链接 | 无
+| regex | 是 | 用于过滤的正则表达式 | 无
+| filename | 否 | 返回的list文件名 | Filter.list
 **conf & list 只能同时存在一个！！！！！**
 
 | | |
