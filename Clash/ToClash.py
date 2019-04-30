@@ -14,6 +14,7 @@ ProxyInfo = {
     "password": "password",
     "obfs": "obfs",
     "obfs-host": "obfs-host",
+    "udp-relay":"udp"
 }
 
 ProxyGroupInfo = ["url", "interval"]
