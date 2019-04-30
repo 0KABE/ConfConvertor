@@ -14,7 +14,7 @@ ProxyInfo = {
     "password": "password",
     "obfs": "obfs",
     "obfs-host": "obfs-host",
-    "udp-relay":"udp"
+    "udp-relay": "udp"
 }
 
 ProxyGroupInfo = ["url", "interval"]
@@ -53,7 +53,12 @@ def ToClash(root, snippet=None):
                     if attrib == "type" and elem.get(attrib) == "custom":
                         value = "ss"
                     else:
-                        value = elem.get(attrib)
+                        if(elem.get(attrib) == "true"):
+                            value = True
+                        elif(elem.get(attrib) == "false"):
+                            value = False
+                        else:
+                            value = elem.get(attrib)
                     dic[ProxyInfo[attrib]] = value
             conf["Proxy"].append(dic)
 
