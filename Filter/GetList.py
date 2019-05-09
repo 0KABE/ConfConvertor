@@ -1,24 +1,36 @@
 import re
 
 
-def FromList(data, regex):
+def Regex(data_list, regex, rename):
     prog = re.compile(regex)
-    data_list = data.splitlines()
     result_list = []
     for line in data_list:
-        if prog.match(line):
+        group = prog.match(line)
+        if group and rename:
+            append = ""
+            for sub in rename:
+                if sub in group.groupdict():
+                    append += group.group(sub)
+                else:
+                    append += sub
+            result_list.append(append)
+        elif group:
             result_list.append(line)
     return "\n".join(result_list)
 
 
-def FromConfig(data, regex):
-    prog = re.compile(regex)
+def FromList(data, regex, rename):
+    proxy_list = data.splitlines()
+    return Regex(proxy_list, regex, rename)
+
+
+def FromConfig(data, regex, rename):
     data_list = data.splitlines()
-    result_list = []
+    proxy_list = []
     status = ""
     for line in data_list:
         if line.startswith('['):
             status = line
-        elif status == "[Proxy]" and prog.match(line):
-            result_list.append(line)
-    return "\n".join(result_list)
+        elif status == "[Proxy]":
+            proxy_list.append(line)
+    return Regex(proxy_list, regex, rename)

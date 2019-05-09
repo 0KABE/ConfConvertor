@@ -14,6 +14,7 @@ from Unite.GetProxyGroupType import GetProxyGroupType
 from Unite.Surge3LikeConfig2XML import Content2XML
 from Filter.GetList import FromConfig
 from Filter.GetList import FromList
+from Filter.RenameList import GetRenameList
 
 
 def Surge3(request):
@@ -71,12 +72,14 @@ def Filter(request):
     config_url = request.args.get("conf")
     filename = request.args.get("filename", "Filter.list")
     regex = request.args.get("regex")
+    rename = request.args.get("rename")
+    rename_list = GetRenameList(rename)
     if list_url:
         content = requests.get(list_url).content.decode()
-        data = FromList(content, regex)
+        data = FromList(content, regex, rename_list)
     if config_url:
         content = requests.get(config_url).content.decode()
-        data = FromConfig(content, regex)
+        data = FromConfig(content, regex, rename_list)
     response = make_response(data)
     response.headers["Content-Disposition"] = "attachment; filename="+filename
     return response

@@ -106,12 +106,17 @@ URL:https://api.OKAB3.com/filter
 | conf | 是 | surge3托管链接 | 无
 | regex | 是 | 用于过滤的正则表达式 | 无
 | filename | 否 | 返回的list文件名 | Filter.list
-**conf & list 只能同时存在一个！！！！！**
+| rename | 否 | 根据该参数自定义节点名称 | 返回原始节点名称
+**conf & list 只能同时存在一个！！！！！**  
+
+**rename参数具体的使用方法参见：https://github.com/0KABE/ConfConvertor/blob/master/rename.md**
 
 | | |
 | :- | :- |
 | 过滤list | https://api.OKAB3.com/filter?list=你的list地址&regex=过滤用的正则表达式 |
 | 过滤surge3托管配置 | https://api.OKAB3.com/filter?conf=你的托管地址&regex=过滤用的正则表达式 |
+| 过滤list并且需要对节点名称自定义 | https://api.OKAB3.com/filter?list=你的list地址&regex=过滤用的正则表达式&rename=自定义节点名称的控制格式字符串 |
+| 过滤surge3托管配置并且需要对节点名称自定义 | https://api.OKAB3.com/filter?conf=你的托管地址&regex=过滤用的正则表达式&rename=自定义节点名称的控制格式字符串 |
 
 
 # 使用方法(demo):  
