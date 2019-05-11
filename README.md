@@ -77,6 +77,8 @@ policy3 = select, policy-path=www.example.com/path/file1.list, policy-path=www.e
 
 # 使用方法
 ## Surge3
+将类Surge3配置转换为Surge3配置  
+
 URL:https://api.OKAB3.com/surge3  
 支持的参数：url(必须），filename（非必须），interval（非必须），strict（非必须）
 
@@ -88,6 +90,8 @@ interval | 否 | 托管配置的更新间隔(s) | 86400 |
 strict（true/false）| 否 |  在更新间隔到达时是否强制更新，如果为false则在更新失败后依旧使用原来的托管配置 | false |
 
 ## Clash
+将类Surge3配置转换为Clash配置  
+
 URL:https://api.OKAB3.com/clash  
 
 | 参数 | 必须 | 描述 | 缺省值 |
@@ -98,6 +102,8 @@ URL:https://api.OKAB3.com/clash
 
 
 ## Filter
+对节点进行过滤  
+
 URL:https://api.OKAB3.com/filter   
 
 | 参数 | 必须 | 描述 | 缺省值 |
@@ -117,6 +123,19 @@ URL:https://api.OKAB3.com/filter
 | 过滤surge3托管配置 | https://api.OKAB3.com/filter?conf=你的托管地址&regex=过滤用的正则表达式 |
 | 过滤list并且需要对节点名称自定义 | https://api.OKAB3.com/filter?list=你的list地址&regex=过滤用的正则表达式&rename=自定义节点名称的控制格式字符串 |
 | 过滤surge3托管配置并且需要对节点名称自定义 | https://api.OKAB3.com/filter?conf=你的托管地址&regex=过滤用的正则表达式&rename=自定义节点名称的控制格式字符串 |
+
+
+## Emoji
+作用：在节点名称前添加Emoji  
+
+URL:https://api.OKAB3.com/emoji   
+
+| 参数 | 必须 | 描述 | 缺省值 |
+| :- | :- | :- | :- |
+| list | 是 | surge3节点list的url | 无 | 
+| filename | 否 | 返回的配置文件名称 | Emoji.list |
+| delEmoji (true/false) | 否 | 在添加emoji前删除所有emoji | true |
+| direction (head/tail) | 否 | 添加Emoji关键词的优先方向（head：从左到右匹配， tail：从右到左匹配） | tail |
 
 
 # 使用方法(demo):  

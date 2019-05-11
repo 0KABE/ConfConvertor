@@ -1,6 +1,9 @@
+import json
 import xml.dom.minidom
 import xml.etree.ElementTree as ET
 
+import Emoji.AddEmoji as AddEmoji
+import Emoji.DelEmoji as DelEmoji
 import requests
 from flask import make_response, request
 
@@ -8,13 +11,12 @@ from Clash.ToClash import ToClash
 from Clash.TopologicalSort import TopologicalSort
 from Expand.ExpandPolicyPath import ExpandPolicyPath
 from Expand.ExpandRuleSet import ExpandRuleSet
+from Filter.GetList import FromConfig, FromList
+from Filter.RenameList import GetRenameList
 from Surge3.ToSurge3 import ToSurge3
 from Unite.CheckPolicyPath import NeedExpandPolicyPath
 from Unite.GetProxyGroupType import GetProxyGroupType
 from Unite.Surge3LikeConfig2XML import Content2XML
-from Filter.GetList import FromConfig
-from Filter.GetList import FromList
-from Filter.RenameList import GetRenameList
 
 
 def Surge3(request):
@@ -81,5 +83,31 @@ def Filter(request):
         content = requests.get(config_url).content.decode()
         data = FromConfig(content, regex, rename_list)
     response = make_response(data)
+    response.headers["Content-Disposition"] = "attachment; filename="+filename
+    return response
+
+
+def Emoji(request):
+    # get request argument
+    delEmoji = request.args.get("delEmoji", "true")
+    list_url = request.args.get("list")
+    filename = request.args.get("filename", "Emoji.list")
+    direction = request.args.get("direction", "tail")
+    # download
+    url_content = requests.get(list_url).content.decode()
+    # get the flag_emoji.json
+    emoji = json.loads(open("./Emoji/flag_emoji.json",
+                            mode="r", encoding="utf-8").read())
+
+    # check if delete emoji
+    if delEmoji == "true":
+        url_content = DelEmoji.delete(url_content)
+    # check the direction
+    if direction == "tail":
+        res = AddEmoji.fromTail(url_content, emoji)
+    elif direction == "head":
+        res = AddEmoji.fromHead(url_content, emoji)
+
+    response = make_response(res)
     response.headers["Content-Disposition"] = "attachment; filename="+filename
     return response
