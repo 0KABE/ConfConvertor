@@ -88,21 +88,18 @@ def Filter(request):
 
 
 def Emoji(request):
+    default_emoji_url = "https://raw.githubusercontent.com/0KABE/ConfConvertor/master/Emoji/flag_emoji.json"
     # get request argument
     delEmoji = request.args.get("delEmoji", "true")
     list_url = request.args.get("list")
     filename = request.args.get("filename", "Emoji.list")
     direction = request.args.get("direction", "tail")
-    emoji_url = request.args.get("emoji")
+    emoji_url = request.args.get("emoji", default_emoji_url)
     # download
     url_content = requests.get(list_url).content.decode()
     # get the flag_emoji.json
-    if emoji_url:
-        emoji_content = requests.get(emoji_url).content.decode()
-        emoji = json.loads(emoji_content)
-    else:
-        emoji = json.loads(open("./Emoji/flag_emoji.json",
-                                mode="r", encoding="utf-8").read())
+    emoji_content = requests.get(emoji_url).content.decode()
+    emoji = json.loads(emoji_content)
 
     # check if delete emoji
     if delEmoji == "true":
