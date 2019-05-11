@@ -93,11 +93,16 @@ def Emoji(request):
     list_url = request.args.get("list")
     filename = request.args.get("filename", "Emoji.list")
     direction = request.args.get("direction", "tail")
+    emoji_url = request.args.get("emoji")
     # download
     url_content = requests.get(list_url).content.decode()
     # get the flag_emoji.json
-    emoji = json.loads(open("./Emoji/flag_emoji.json",
-                            mode="r", encoding="utf-8").read())
+    if emoji_url:
+        emoji_content = requests.get(emoji_url).content.decode()
+        emoji = json.load(emoji_content)
+    else:
+        emoji = json.loads(open("./Emoji/flag_emoji.json",
+                                mode="r", encoding="utf-8").read())
 
     # check if delete emoji
     if delEmoji == "true":

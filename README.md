@@ -136,6 +136,9 @@ URL:https://api.OKAB3.com/emoji
 | filename | 否 | 返回的配置文件名称 | Emoji.list |
 | delEmoji (true/false) | 否 | 在添加emoji前删除所有emoji | true |
 | direction (head/tail) | 否 | 添加Emoji关键词的优先方向（head：从左到右匹配， tail：从右到左匹配） | tail |
+| emoji | 否 | 自定义emoji的json文件url | API自带的残疾json |
+
+emoji参数对应的格式：https://raw.githubusercontent.com/0KABE/ConfConvertor/master/Emoji/flag_emoji.json
 
 
 # 使用方法(demo):  
