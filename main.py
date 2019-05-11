@@ -99,7 +99,7 @@ def Emoji(request):
     # get the flag_emoji.json
     if emoji_url:
         emoji_content = requests.get(emoji_url).content.decode()
-        emoji = json.load(emoji_content)
+        emoji = json.loads(emoji_content)
     else:
         emoji = json.loads(open("./Emoji/flag_emoji.json",
                                 mode="r", encoding="utf-8").read())
