@@ -156,4 +156,4 @@ emoji参数对应的格式：https://raw.githubusercontent.com/0KABE/ConfConvert
 #吱口令#长按复制此条消息，打开支付宝给我转账ijL3kr36HM
 ```
 # Telegram：  
-https://t.me/OKAB3Scrip
+https://t.me/OKAB3Script
