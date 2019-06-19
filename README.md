@@ -146,7 +146,7 @@ emoji参数对应的格式：https://raw.githubusercontent.com/0KABE/ConfConvert
 例如， 现在的远程链接： https://gist.githubusercontent.com/0KABE/1f448c7b26db7a3c5830a40f33021e8f/raw/DEMO.conf  
 则：  
 在Surge3Pro中的托管链接为：https://api.OKAB3.com/surge3?url=https://gist.githubusercontent.com/0KABE/1f448c7b26db7a3c5830a40f33021e8f/raw/DEMO.conf  
-在Clash中的托管链接为：https://api.OKAB3.com/clash?https://gist.githubusercontent.com/0KABE/1f448c7b26db7a3c5830a40f33021e8f/raw/DEMO.conf
+在Clash中的托管链接为：https://api.OKAB3.com/clash?url=https://gist.githubusercontent.com/0KABE/1f448c7b26db7a3c5830a40f33021e8f/raw/DEMO.conf
 
 # 感谢:  
 * Shiro  
