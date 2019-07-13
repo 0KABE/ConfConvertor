@@ -1,0 +1,30 @@
+@startuml API Filter Class Diagram
+title API Filter Class Diagram
+
+abstract Filter{
+    + filename: string
+    + url: string
+    + type: string
+    + regex: regex
+    + rename: string
+
+    + {abstract} filter_source(): Response
+}
+
+class SurgeListFilter{
+    + filter_proxy(): str
+    + filter_by_regex(): str
+    + filter_source(): str
+}
+SurgeListFilter --|> Filter
+
+class SurgeConfFilter
+SurgeConfFilter --|> SurgeListFilter
+
+class SSFilter
+SSFilter --|> Filter
+
+class SSRFilter
+SSRFilter --|> Filter
+
+@enduml

@@ -1,0 +1,25 @@
+@startuml API Filter Use Case Diagram
+title API Filter Use Case Diagram
+
+actor User
+
+rectangle Surge_Filter{
+    'Surge3
+    User --> (Filter Surge3List)
+    User --> (Filter Surge3Confg)
+    (Filter Surge3Confg) ..> (Filter Surge3List): <<extend>>
+    (Filter Surge3Confg) ..> (Filter Sruge3 Proxy): <<include>>
+}
+
+rectangle SS/SSR_Filter{
+    'Shadowsocks
+    User --> (Filter Shadowsocks)
+    (Filter Shadowsocks) ..> (Decode SS Base64): <<include>>
+    (Decode SS Base64) ..> (Decode SS/SSR Base64): <<extend>>
+
+    'ShadowsocksR
+    User --> (Filter ShadowsocksR)
+    (Filter ShadowsocksR) ..> (Decode SSR Base64): <<include>>
+    (Decode SSR Base64) ..> (Decode SS/SSR Base64): <<extend>>
+}
+@enduml
