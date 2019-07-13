@@ -1,2 +1,4 @@
 aiohttp
 emoji
+pyyaml
+flask
