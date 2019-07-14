@@ -106,23 +106,23 @@ URL:https://api.OKAB3.com/clash
 
 URL:https://api.OKAB3.com/filter   
 
-| 参数 | 必须 | 描述 | 缺省值 |
-| :- | :- | :- | :- |
-| list | 是 | surge3节点list的url | 无
-| conf | 是 | surge3托管链接 | 无
-| regex | 是 | 用于过滤的正则表达式 | 无
+| 参数 | 必须 | 描述 | 缺省值 | 取值范围 |
+| :- | :- | :- | :- | :- |
+| type | 是 | 源文件类型 | 无 | surgelist/surgeconf/ss/ssr |
+| regex | 是 | 用于过滤的正则表达式 | 无 |
 | filename | 否 | 返回的list文件名 | Filter.list
-| rename | 否 | 根据该参数自定义节点名称 | 返回原始节点名称
-**conf & list 只能同时存在一个！！！！！**  
+| rename | 否 | 根据该参数自定义节点名称（仅可在surgelist或surgeconf中使用） | 返回原始节点名称
+
+**所有url参数建议进行url编码**
 
 **rename参数具体的使用方法参见：https://github.com/0KABE/ConfConvertor/blob/master/rename.md**
 
 | | |
 | :- | :- |
-| 过滤list | https://api.OKAB3.com/filter?list=你的list地址&regex=过滤用的正则表达式 |
-| 过滤surge3托管配置 | https://api.OKAB3.com/filter?conf=你的托管地址&regex=过滤用的正则表达式 |
-| 过滤list并且需要对节点名称自定义 | https://api.OKAB3.com/filter?list=你的list地址&regex=过滤用的正则表达式&rename=自定义节点名称的控制格式字符串 |
-| 过滤surge3托管配置并且需要对节点名称自定义 | https://api.OKAB3.com/filter?conf=你的托管地址&regex=过滤用的正则表达式&rename=自定义节点名称的控制格式字符串 |
+| 过滤surge list | https://api.OKAB3.com/filter?type=surgelist&url=你的list地址&regex=过滤用的正则表达式 |
+| 过滤surge托管配置 | https://api.OKAB3.com/filter?type=surgeconf&url=你的托管地址&regex=过滤用的正则表达式 |
+| 过滤surge list并且需要对节点名称自定义 | https://api.OKAB3.com/filter?type=surgelist&url=你的list地址&regex=过滤用的正则表达式&rename=自定义节点名称的控制格式字符串 |
+| 过滤surge托管配置并且需要对节点名称自定义 | https://api.OKAB3.com/filter?type=surgeconf&url=你的托管地址&regex=过滤用的正则表达式&rename=自定义节点名称的控制格式字符串 |
 
 
 ## Emoji
