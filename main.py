@@ -11,7 +11,7 @@ from Clash.ToClash import ToClash
 from Clash.TopologicalSort import TopologicalSort
 from Expand.ExpandPolicyPath import ExpandPolicyPath
 from Expand.ExpandRuleSet import ExpandRuleSet
-from Filter.filter import SrugeListFilter, SurgeConfFilter
+from Filter.filter import SrugeListFilter, SurgeConfFilter, SSFilter, SSRFilter
 from Surge3.ToSurge3 import ToSurge3
 from Unite.CheckPolicyPath import NeedExpandPolicyPath
 from Unite.GetProxyGroupType import GetProxyGroupType
@@ -69,26 +69,18 @@ def Clash(request):
 
 
 def Filter(request):
-    # list_url = request.args.get("list")
-    # config_url = request.args.get("conf")
-    # filename = request.args.get("filename", "Filter.list")
-    # regex = request.args.get("regex")
-    # rename = request.args.get("rename")
-    # rename_list = GetRenameList(rename)
-    # if list_url:
-    #     content = requests.get(list_url).content.decode()
-    #     data = FromList(content, regex, rename_list)
-    # if config_url:
-    #     content = requests.get(config_url).content.decode()
-    #     data = FromConfig(content, regex, rename_list)
-    # response = make_response(data)
-    # response.headers["Content-Disposition"] = "attachment; filename="+filename
     filter_type = str(request.args.get("type"))
     filter_type_lower = filter_type.lower()
     if filter_type_lower == "surgelist":
         return SrugeListFilter(request).filter_source()
     elif filter_type_lower == "surgeconf":
         return SurgeConfFilter(request).filter_source()
+    elif filter_type_lower == "ss":
+        return SSFilter(request).filter_source()
+    elif filter_type_lower == "ssr":
+        return SSRFilter(request).filter_source()
+    else:
+        return "Illegal value for parameter type: "+filter_type+". Please see https://github.com/0KABE/ConfConvertor for details"
 
 
 def Emoji(request):
