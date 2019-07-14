@@ -126,8 +126,10 @@ class SSRFilter(SSFilter):
         # get parameter dictionary
         param_dict: dict = urllib.parse.parse_qs(
             urllib.parse.urlparse(content).query)
+        # replace ' ' by '+'
+        remarks = param_dict["remarks"][0].replace(' ', '+')
         # add missing padding
         # get the parameter remarks
         name: str = base64.urlsafe_b64decode(
-            param_dict["remarks"][0]+'='*(-len(param_dict["remarks"][0]) % 4)).decode()
+            remarks+'='*(-len(remarks) % 4)).decode()
         return name
