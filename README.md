@@ -150,6 +150,8 @@ emoji参数对应的格式：https://raw.githubusercontent.com/0KABE/ConfConvert
 
 # 感谢:  
 * Shiro  
+* 🅚ⒺⓋⒾⓃ 🅧ⒾⓃⒼ
+* 🆉🄴🄰🄻🅂🄾🄽
 
 # 打赏:  
 ```
@@ -157,3 +159,4 @@ emoji参数对应的格式：https://raw.githubusercontent.com/0KABE/ConfConvert
 ```
 # Telegram：  
 https://t.me/OKAB3Script
+https://t.me/OKAB3_Script_Channel
