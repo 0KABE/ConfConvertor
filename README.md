@@ -152,6 +152,7 @@ emoji参数对应的格式：https://raw.githubusercontent.com/0KABE/ConfConvert
 * Shiro  
 * 🅚ⒺⓋⒾⓃ 🅧ⒾⓃⒼ
 * 🆉🄴🄰🄻🅂🄾🄽
+* 旺仔（JO2EY）
 
 # 打赏:  
 ```
