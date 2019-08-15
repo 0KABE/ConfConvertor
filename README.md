@@ -167,6 +167,7 @@ emoji参数对应的格式：<https://raw.githubusercontent.com/0KABE/ConfConver
 * 🅚ⒺⓋⒾⓃ 🅧ⒾⓃⒼ
 * 🆉🄴🄰🄻🅂🄾🄽
 * 旺仔（JO2EY）
+* Alban White
 
 ## 打赏
 
