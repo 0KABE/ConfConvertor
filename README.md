@@ -1,4 +1,5 @@
 # ConfConvertor
+
 旨在能够使用一套配置通过转换API转换成适应于各类科学上网的配置文件
 
 拟通过在类Surge3Pro的配置文件上增加一些Clash的特殊的内容。
@@ -7,29 +8,34 @@
 
 可以实现一份配置文件同时支持Clash & Surge3
 
-## API: Surge3介绍：  
+## API: Surge3介绍
+
 相比与Surge3Expand 新的API Surge3 ***~~不在~~*** 默认将policy-path, RULE-SET 全部展开  
 **去除load-balance**  
 
 在Surge3Pro中，不支持policy-path与其他policy-path混用或policy-path与其他策略组混用  
 即如果需要使用policy-path来远程下载节点信息，则该策略组将只允许一个policy-path  
 例如：  
-```
+
+```conf
 policy1 = select, policy-path=www.example.com/path/file.list  合法  
 policy2 = select, policy-path=www.example.com/path/file.list, policy1  非法  
 policy3 = select, policy-path=www.example.com/path/file1.list, policy-path=www.example.com/path/file2.list  非法  
 ```
+
 ~~现在，API Surge3将会判断策略组中是否存在上述的情况，若存在上述的在Surge中非法的情况，才会对所有policy-path进行展开  
 如果策略组中没有存在上述的情况，保留policy-path交给Surge3展开总是更好的~~  
 **因为Surge3托管文件不能手动更新PolicyPath  
 现在API Surge3 将会直接将policypath展开**
 
-## API: Clash介绍：  
+## API: Clash介绍
+
 **支持load-balance**  
 在Clash中，靠后的策略组中包含的策略组必须位于该策略组前面，而Surge中则没有这个限制，可以任意排序。  
 在这个API中，Clash将会通过排序来使得策略组的顺序满足Clash的要求。
 例如：  
-```
+
+```yaml
 - name: Policy1
   type: select
   proxies:
@@ -46,8 +52,10 @@ policy3 = select, policy-path=www.example.com/path/file1.list, policy-path=www.e
   - Node3
   - Node4
 ```
+
 上述的序列关系无法在Clash使用，需要对该策略组的顺序重新排列
-```
+
+```yaml
 - name: Policy2
   type: select
   proxies:
@@ -64,9 +72,11 @@ policy3 = select, policy-path=www.example.com/path/file1.list, policy-path=www.e
   - Policy2
   - Policy3
 ```
+
 以上便是一个排列后在Clash中合法的顺序组合  
 除此之外，该API将会对policy-path以及RULE-SET进行展开，去除某些在clash中不支持的内容。  
 例如：  
+
 * reject-tinygif
 * USER-AGENT
 * MITM
@@ -75,89 +85,97 @@ policy3 = select, policy-path=www.example.com/path/file1.list, policy-path=www.e
 **如果担心数据安全性等问题，可以选择在自己的服务器上搭建，源代码已经在代码库中给出**  
 **如果遇到BUG 或者 有好的Feature 欢迎提Issue**
 
-# 使用方法
-## Surge3
+## 使用方法
+
+### Surge3
+
 将类Surge3配置转换为Surge3配置  
 
-URL:https://api.OKAB3.com/surge3  
+URL:<https://api.OKAB3.com/surge3>  
 支持的参数：url(必须），filename（非必须），interval（非必须），strict（非必须）
 
-| 参数 | 必须 | 描述 | 缺省值 |
-| :- | :- | :- | :- |
-url | 是 | 待转换的类Surge3Pro配置url地址 | 无 |
-filename | 否 | 返回的配置文件名称 | Config.conf |
-interval | 否 | 托管配置的更新间隔(s) | 86400 |
-strict（true/false）| 否 |  在更新间隔到达时是否强制更新，如果为false则在更新失败后依旧使用原来的托管配置 | false |
+| 参数                 | 必须 | 描述                                                                          | 缺省值      |
+| :------------------- | :--- | :---------------------------------------------------------------------------- | :---------- |
+| url                  | 是   | 待转换的类Surge3Pro配置url地址                                                | 无          |
+| filename             | 否   | 返回的配置文件名称                                                            | Config.conf |
+| interval             | 否   | 托管配置的更新间隔(s)                                                         | 86400       |
+| strict（true/false） | 否   | 在更新间隔到达时是否强制更新，如果为false则在更新失败后依旧使用原来的托管配置 | false       |
 
-## Clash
+### Clash
+
 将类Surge3配置转换为Clash配置  
 
-URL:https://api.OKAB3.com/clash  
+URL:<https://api.OKAB3.com/clash>  
 
-| 参数 | 必须 | 描述 | 缺省值 |
-| :- | :- | :- | :- |
-| url | 是 |待转换的类Surge3Pro配置url地址 | 无 | 
-| filename | 否 | 返回的配置文件名称 | Config.yml |
-| snippet | 否 | 为clash配置附加额外的参数（例如DNS）参数格式为yaml格式（同Clash） | 无 |
+| 参数     | 必须 | 描述                                                              | 缺省值     |
+| :------- | :--- | :---------------------------------------------------------------- | :--------- |
+| url      | 是   | 待转换的类Surge3Pro配置url地址                                    | 无         |
+| filename | 否   | 返回的配置文件名称                                                | Config.yml |
+| snippet  | 否   | 为clash配置附加额外的参数（例如DNS）参数格式为yaml格式（同Clash） | 无         |
 
+### Filter
 
-## Filter
 对节点进行过滤  
 
-URL:https://api.OKAB3.com/filter   
+URL:<https://api.OKAB3.com/filter>
 
-| 参数 | 必须 | 描述 | 缺省值 | 取值范围 |
-| :- | :- | :- | :- | :- |
-| type | 是 | 源文件类型 | 无 | surgelist/surgeconf/ss/ssr |
-| regex | 是 | 用于过滤的正则表达式 | 无 |
-| filename | 否 | 返回的list文件名 | Filter.list
-| rename | 否 | 根据该参数自定义节点名称（仅可在surgelist或surgeconf中使用） | 返回原始节点名称
+| 参数     | 必须 | 描述                                                         | 缺省值           | 取值范围                   |
+| :------- | :--- | :----------------------------------------------------------- | :--------------- | :------------------------- |
+| type     | 是   | 源文件类型                                                   | 无               | surgelist/surgeconf/ss/ssr |
+| regex    | 是   | 用于过滤的正则表达式                                         | 无               |
+| filename | 否   | 返回的list文件名                                             | Filter.list      |
+| rename   | 否   | 根据该参数自定义节点名称（仅可在surgelist或surgeconf中使用） | 返回原始节点名称 |
 
-**所有url参数建议进行url编码**
+**所有url参数**建议进行url编码
 
-**rename参数具体的使用方法参见：https://github.com/0KABE/ConfConvertor/blob/master/rename.md**
+**rename参数具体的使用方法参见**：<https://github.com/0KABE/ConfConvertor/blob/master/rename.md>
 
-| | |
-| :- | :- |
-| 过滤surge list | https://api.OKAB3.com/filter?type=surgelist&url=你的list地址&regex=过滤用的正则表达式 |
-| 过滤surge托管配置 | https://api.OKAB3.com/filter?type=surgeconf&url=你的托管地址&regex=过滤用的正则表达式 |
-| 过滤surge list并且需要对节点名称自定义 | https://api.OKAB3.com/filter?type=surgelist&url=你的list地址&regex=过滤用的正则表达式&rename=自定义节点名称的控制格式字符串 |
-| 过滤surge托管配置并且需要对节点名称自定义 | https://api.OKAB3.com/filter?type=surgeconf&url=你的托管地址&regex=过滤用的正则表达式&rename=自定义节点名称的控制格式字符串 |
+|                                           |                                                                                                                               |
+| :---------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------- |
+| 过滤surge list                            | <https://api.OKAB3.com/filter?type=surgelist&url=你的list地址&regex=过滤用的正则表达式>                                       |
+| 过滤surge托管配置                         | <https://api.OKAB3.com/filter?type=surgeconf&url=你的托管地址&regex=过滤用的正则表达式>                                       |
+| 过滤surge list并且需要对节点名称自定义    | <https://api.OKAB3.com/filter?type=surgelist&url=你的list地址&regex=过滤用的正则表达式&rename=自定义节点名称的控制格式字符串> |
+| 过滤surge托管配置并且需要对节点名称自定义 | <https://api.OKAB3.com/filter?type=surgeconf&url=你的托管地址&regex=过滤用的正则表达式&rename=自定义节点名称的控制格式字符串> |
 
+### Emoji
 
-## Emoji
 作用：在节点名称前添加Emoji  
 
-URL:https://api.OKAB3.com/emoji   
+URL:<https://api.OKAB3.com/emoji>
 
-| 参数 | 必须 | 描述 | 缺省值 |
-| :- | :- | :- | :- |
-| list | 是 | surge3节点list的url | 无 | 
-| filename | 否 | 返回的配置文件名称 | Emoji.list |
-| delEmoji (true/false) | 否 | 在添加emoji前删除所有emoji | true |
-| direction (head/tail) | 否 | 添加Emoji关键词的优先方向（head：从左到右匹配， tail：从右到左匹配） | tail |
-| emoji | 否 | 自定义emoji的json文件url | API自带的残疾json |
+| 参数                  | 必须 | 描述                                                                 | 缺省值            |
+| :-------------------- | :--- | :------------------------------------------------------------------- | :---------------- |
+| list                  | 是   | surge3节点list的url                                                  | 无                |
+| filename              | 否   | 返回的配置文件名称                                                   | Emoji.list        |
+| delEmoji (true/false) | 否   | 在添加emoji前删除所有emoji                                           | true              |
+| direction (head/tail) | 否   | 添加Emoji关键词的优先方向（head：从左到右匹配， tail：从右到左匹配） | tail              |
+| emoji                 | 否   | 自定义emoji的json文件url                                             | API自带的残疾json |
 
-emoji参数对应的格式：https://raw.githubusercontent.com/0KABE/ConfConvertor/master/Emoji/flag_emoji.json
+emoji参数对应的格式：<https://raw.githubusercontent.com/0KABE/ConfConvertor/master/Emoji/flag_emoji.json>
 
+## 使用方法(demo)
 
-# 使用方法(demo):  
 因为API需要一个url参数来获取类Surge配置文件，因此一种方法是使用GitHub私有gist来远程存放链接  
-例如， 现在的远程链接： https://gist.githubusercontent.com/0KABE/1f448c7b26db7a3c5830a40f33021e8f/raw/DEMO.conf  
+例如， 现在的远程链接： <https://gist.githubusercontent.com/0KABE/1f448c7b26db7a3c5830a40f33021e8f/raw/DEMO.conf>
 则：  
-在Surge3Pro中的托管链接为：https://api.OKAB3.com/surge3?url=https://gist.githubusercontent.com/0KABE/1f448c7b26db7a3c5830a40f33021e8f/raw/DEMO.conf  
-在Clash中的托管链接为：https://api.OKAB3.com/clash?url=https://gist.githubusercontent.com/0KABE/1f448c7b26db7a3c5830a40f33021e8f/raw/DEMO.conf
+在Surge3Pro中的托管链接为：<https://api.OKAB3.com/surge3?url=https://gist.githubusercontent.com/0KABE/1f448c7b26db7a3c5830a40f33021e8f/raw/DEMO.conf>  
+在Clash中的托管链接为：<https://api.OKAB3.com/clash?url=https://gist.githubusercontent.com/0KABE/1f448c7b26db7a3c5830a40f33021e8f/raw/DEMO.conf>
 
-# 感谢:  
+## 感谢
+
 * Shiro  
 * 🅚ⒺⓋⒾⓃ 🅧ⒾⓃⒼ
 * 🆉🄴🄰🄻🅂🄾🄽
 * 旺仔（JO2EY）
 
-# 打赏:  
-```
+## 打赏
+
+```text
 #吱口令#长按复制此条消息，打开支付宝给我转账ijL3kr36HM
 ```
-# Telegram：  
-https://t.me/OKAB3Script
-https://t.me/OKAB3_Script_Channel
+
+## Telegram
+
+[TG群组](https://t.me/OKAB3Script)
+
+[TG频道](https://t.me/OKAB3_Script_Channel)
