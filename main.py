@@ -5,8 +5,6 @@ import xml.etree.ElementTree as ET
 import requests
 from flask import Request, make_response, request
 
-import Emoji.AddEmoji as AddEmoji
-import Emoji.DelEmoji as DelEmoji
 from Clash.ToClash import ToClash
 from Clash.TopologicalSort import TopologicalSort
 from Emoji.emoji import EmojiParm, EmojiType, SSEmoji, SSREmoji, SurgeListEmoji
