@@ -2,21 +2,21 @@ import json
 import xml.dom.minidom
 import xml.etree.ElementTree as ET
 
+import requests
+from flask import Request, make_response, request
+
 import Emoji.AddEmoji as AddEmoji
 import Emoji.DelEmoji as DelEmoji
-import requests
-from flask import make_response, request, Request
-
 from Clash.ToClash import ToClash
 from Clash.TopologicalSort import TopologicalSort
+from Emoji.emoji import EmojiParm, EmojiType, SSEmoji, SSREmoji, SurgeListEmoji
 from Expand.ExpandPolicyPath import ExpandPolicyPath
 from Expand.ExpandRuleSet import ExpandRuleSet
-from Filter.filter import SrugeListFilter, SurgeConfFilter, SSFilter, SSRFilter
+from Filter.filter import SrugeListFilter, SSFilter, SSRFilter, SurgeConfFilter
 from Surge3.ToSurge3 import ToSurge3
 from Unite.CheckPolicyPath import NeedExpandPolicyPath
 from Unite.GetProxyGroupType import GetProxyGroupType
 from Unite.Surge3LikeConfig2XML import Content2XML
-from Emoji.emoji import EmojiType, EmojiParm, SurgeListEmoji, SSEmoji, SSREmoji
 
 
 def Surge3(request):
