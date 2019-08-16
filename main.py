@@ -5,7 +5,7 @@ import xml.etree.ElementTree as ET
 import Emoji.AddEmoji as AddEmoji
 import Emoji.DelEmoji as DelEmoji
 import requests
-from flask import make_response, request
+from flask import make_response, request, Request
 
 from Clash.ToClash import ToClash
 from Clash.TopologicalSort import TopologicalSort
@@ -16,6 +16,7 @@ from Surge3.ToSurge3 import ToSurge3
 from Unite.CheckPolicyPath import NeedExpandPolicyPath
 from Unite.GetProxyGroupType import GetProxyGroupType
 from Unite.Surge3LikeConfig2XML import Content2XML
+from Emoji.emoji import EmojiType, EmojiParm, SurgeListEmoji, SSEmoji, SSREmoji
 
 
 def Surge3(request):
@@ -83,29 +84,11 @@ def Filter(request):
         return "Illegal value for parameter type: "+filter_type+". Please see https://github.com/0KABE/ConfConvertor for details"
 
 
-def Emoji(request):
-    default_emoji_url = "https://raw.githubusercontent.com/0KABE/ConfConvertor/master/Emoji/flag_emoji.json"
-    # get request argument
-    delEmoji = request.args.get("delEmoji", "true")
-    list_url = request.args.get("list")
-    filename = request.args.get("filename", "Emoji.list")
-    direction = request.args.get("direction", "tail")
-    emoji_url = request.args.get("emoji", default_emoji_url)
-    # download
-    url_content = requests.get(list_url).content.decode()
-    # get the flag_emoji.json
-    emoji_content = requests.get(emoji_url).content.decode()
-    emoji = json.loads(emoji_content)
-
-    # check if delete emoji
-    if delEmoji == "true":
-        url_content = DelEmoji.delete(url_content)
-    # check the direction
-    if direction == "tail":
-        res = AddEmoji.fromTail(url_content, emoji)
-    elif direction == "head":
-        res = AddEmoji.fromHead(url_content, emoji)
-
-    response = make_response(res)
-    response.headers["Content-Disposition"] = "attachment; filename="+filename
-    return response
+def Emoji(request: Request):
+    source_type: EmojiType = EmojiType(request.args.get(EmojiParm.TYPE.value))
+    if source_type == EmojiType.SURGE_LIST:
+        return SurgeListEmoji(request).convert()
+    elif source_type == EmojiType.SS:
+        return SSEmoji(request).convert()
+    elif source_type == EmojiType.SSR:
+        return SSREmoji(request).convert()
