@@ -136,6 +136,15 @@ class SSEmoji(Emoji):
         self.url_content = res
         return self
 
+    def convert(self) -> Response:
+        if(self.delete):
+            self._del_emoji()
+        response: Response = make_response(
+            base64.b64encode(
+                "\n".join(self._add_emoji().url_content).encode()).decode())
+        response.headers["Content-Disposition"] = "attachment; filename="+self.filename
+        return response
+
 
 class SSREmoji(SSEmoji):
     def _download_url_content(self):
@@ -215,3 +224,12 @@ class SSREmoji(SSEmoji):
             # res.append(urllib.parse.urlunparse(parsed))
         self.url_content = res
         return self
+
+    def convert(self) -> Response:
+        if(self.delete):
+            self._del_emoji()
+        response: Response = make_response(
+            base64.urlsafe_b64encode(
+                "\n".join(self._add_emoji().url_content).encode()).decode().rstrip("="))
+        response.headers["Content-Disposition"] = "attachment; filename="+self.filename
+        return response
