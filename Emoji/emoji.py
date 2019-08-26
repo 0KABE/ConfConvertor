@@ -170,7 +170,7 @@ class SSREmoji(SSEmoji):
         return content
 
     def _unparse_ssr_url(self, url: str):
-        base64_content: str = url.lstrip("ssr://")
+        base64_content: str = url.replace("ssr://", "", 1)
         ssr_url = "ssr://" + \
             base64.urlsafe_b64encode(
                 base64_content.encode()).decode().rstrip("=")
