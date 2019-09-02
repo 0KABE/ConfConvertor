@@ -14,7 +14,7 @@ def ToSurge3(root):
     KeyWordsCorrespond = {"General": "[General]", "Replica": "[Replica]", "Proxy": "[Proxy]", "ProxyGroup": "[Proxy Group]", "Rule": "[Rule]",
                           "Host": "[Host]", "URLRewrite": "[URL Rewrite]", "HeaderRewrite": "[Header Rewrite]", "SSIDSetting": "[SSID Setting]", "MITM": "[MITM]"}
     ProxyTypeAttrib = {"ss": {"type": "", "server": "", "port": "", "encrypt-method": "encrypt-method=", "password": "password=", "obfs": "obfs=", "obfs-host": "obfs-host=", "tfo": "tfo=", "udp-relay": "udp-relay="},
-                       "custom": {"type": "", "server": "", "port": "", "encrypt-method": "", "password": "", "module": ""}}
+                       "custom": {"type": "", "server": "", "port": "", "encrypt-method": "", "password": "", "module": "", "obfs": "obfs=", "obfs-host": "obfs-host="}}
     for elem in root:
         if elem.tag == "comment":
             continue

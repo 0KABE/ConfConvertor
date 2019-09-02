@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 
 def GetProxyElement(line):
     Info_Correspond = {"ss": ("type", "server", "port", "encrypt-method", "password", "obfs", "obfs-host", "tfo", "udp-relay"),
-                       "custom": ("type", "server", "port", "encrypt-method", "password", "module")}
+                       "custom": ("type", "server", "port", "encrypt-method", "password", "module", "obfs", "obfs-host")}
     l = line.split("=", 1)
     if l[1].find(",") == -1:
         element = ET.Element("Built-in")
