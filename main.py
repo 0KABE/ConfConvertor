@@ -54,12 +54,12 @@ def Clash(request):
     url = request.args.get('url')
     filename = request.args.get("filename", "Config.yml")
     snippet = request.args.get("snippet")
-    sort = request.args.get("sort", True)
+    sort = request.args.get("sort", "True")
     url_text = requests.get(url).content.decode()
     x = Content2XML(url_text)
     x = ExpandPolicyPath(x)
     x = ExpandRuleSet(x)
-    if(sort):
+    if(sort == "True"):
         x = TopologicalSort(x)
 
     result = ToClash(x, snippet)
