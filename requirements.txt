@@ -2,3 +2,5 @@ aiohttp
 emoji
 pyyaml
 flask
+gunicorn
+supervisor

@@ -3,7 +3,7 @@ import xml.dom.minidom
 import xml.etree.ElementTree as ET
 
 import requests
-from flask import Request, make_response, request
+from flask import Request, make_response, request, Flask
 
 from Clash.ToClash import ToClash
 from Clash.TopologicalSort import TopologicalSort
@@ -16,8 +16,11 @@ from Unite.CheckPolicyPath import NeedExpandPolicyPath
 from Unite.GetProxyGroupType import GetProxyGroupType
 from Unite.Surge3LikeConfig2XML import Content2XML
 
+app = Flask(__name__)
 
-def Surge3(request):
+
+@app.route('/surge3', methods=['GET', 'POST'])
+def Surge3():
     """
     Args:
         request (flask.Request): HTTP request object.
@@ -50,7 +53,8 @@ def Surge3(request):
     return response
 
 
-def Clash(request):
+@app.route('/clash', methods=['GET', 'POST'])
+def Clash():
     url = request.args.get('url')
     filename = request.args.get("filename", "Config.yml")
     snippet = request.args.get("snippet")
@@ -69,7 +73,8 @@ def Clash(request):
     return response
 
 
-def Filter(request):
+@app.route('/filter', methods=['GET', 'POST'])
+def Filter():
     filter_type = str(request.args.get("type"))
     filter_type_lower = filter_type.lower()
     if filter_type_lower == "surgelist":
@@ -84,7 +89,8 @@ def Filter(request):
         return "Illegal value for parameter type: "+filter_type+". Please see https://github.com/0KABE/ConfConvertor for details"
 
 
-def Emoji(request: Request):
+@app.route('/emoji', methods=['GET', 'POST'])
+def Emoji():
     source_type: EmojiType = EmojiType(request.args.get(EmojiParm.TYPE.value))
     if source_type == EmojiType.SURGE_LIST:
         return SurgeListEmoji(request).convert()
@@ -92,3 +98,8 @@ def Emoji(request: Request):
         return SSEmoji(request).convert()
     elif source_type == EmojiType.SSR:
         return SSREmoji(request).convert()
+
+
+if __name__ == '__main__':
+    app.debug = False
+    app.run(host='localhost', port=5000)
