@@ -10,7 +10,7 @@ from Clash.TopologicalSort import TopologicalSort
 from Emoji.emoji import EmojiParm, EmojiType, SSEmoji, SSREmoji, SurgeListEmoji
 from Expand.ExpandPolicyPath import ExpandPolicyPath
 from Expand.ExpandRuleSet import ExpandRuleSet
-from Filter.filter import SrugeListFilter, SSFilter, SSRFilter, SurgeConfFilter
+from Filter.filter import SrugeListFilter, SSFilter, SSRFilter, SurgeConfFilter,QuanXListFilter
 from Surge3.ToSurge3 import ToSurge3
 from Unite.CheckPolicyPath import NeedExpandPolicyPath
 from Unite.GetProxyGroupType import GetProxyGroupType
@@ -79,6 +79,8 @@ def Filter():
     filter_type_lower = filter_type.lower()
     if filter_type_lower == "surgelist":
         return SrugeListFilter(request).filter_source()
+    elif filter_type_lower == "qxlist":
+        return QuanXListFilter(request).filter_source()
     elif filter_type_lower == "surgeconf":
         return SurgeConfFilter(request).filter_source()
     elif filter_type_lower == "ss":

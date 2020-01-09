@@ -20,6 +20,48 @@ class Filter(object):
         return
 
 
+class QuanXListFilter(Filter):
+    def __init__(self, request):
+        super().__init__(request)
+        if self.filename is None:
+            self.filename = "Filter.list"
+
+    def filter_proxy(self) -> str:
+        """
+        get all proxies from the url
+        """
+        # get the decoded content from the url
+        # strip unnecessary whitespace
+        return requests.get(
+            self.url).content.decode().strip()
+
+    def filter_by_regex(self, content: str) -> str:
+        proxies: list = content.splitlines()
+        prog = re.compile(self.regex)
+        result: list = []  # filter result
+        for line in proxies:
+            math_group = prog.match(line)
+            # if the line match the regex
+            if math_group:
+                # if need to rename
+                if self.rename:
+                    proxy: str
+                    for part in self.rename.splitlines():
+                        if part in math_group.groupdict():
+                            proxy += math_group.group(part)
+                        else:
+                            proxy += part
+                    result.append(proxy)
+                else:
+                    result.append(line)
+        return "\n".join(result)
+
+    def filter_source(self):
+        response = make_response(self.filter_by_regex(self.filter_proxy()))
+        response.headers["Content-Disposition"] = "attachment; filename="+self.filename
+        return response
+
+
 class SrugeListFilter(Filter):
     def __init__(self, request: Request):
         super().__init__(request)

@@ -122,11 +122,11 @@ URL:<https://api.OKAB3.com/filter>
 
 | 参数     | 必须 | 描述                                                         | 缺省值           | 取值范围                   |
 | :------- | :--- | :----------------------------------------------------------- | :--------------- | :------------------------- |
-| type     | 是   | 源文件类型                                                   | 无               | surgelist/surgeconf/ss/ssr |
+| type     | 是   | 源文件类型                                                   | 无               | surgelist/surgeconf/ss/ssr/qxlist |
 | url      | 是   | 源文件地址                                                   | 无               |
 | regex    | 是   | 用于过滤的正则表达式                                         | 无               |
 | filename | 否   | 返回的list文件名                                             | Filter.list      |
-| rename   | 否   | 根据该参数自定义节点名称（仅可在surgelist或surgeconf中使用） | 返回原始节点名称 |
+| rename   | 否   | 根据该参数自定义节点名称（仅可在surgelist|surgeconf|qxlist中使用） | 返回原始节点名称 |
 
 **所有url参数**建议进行url编码
 
