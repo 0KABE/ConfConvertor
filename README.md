@@ -106,6 +106,7 @@ URL:<https://api.OKAB3.com/surge3>
 将类Surge3配置转换为Clash配置  
 
 URL:<https://api.OKAB3.com/clash>  
+Clash Core v1.0 URL: <https://api.OKAB3.com/clash/v1> 其他保持不变
 
 | 参数     | 必须 | 描述                                                              | 缺省值     |
 | :------- | :--- | :---------------------------------------------------------------- | :--------- |

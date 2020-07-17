@@ -6,6 +6,7 @@ import requests
 from flask import Request, make_response, request, Flask
 
 from Clash.ToClash import ToClash
+from Clash.ToClashV1 import ToClashV1
 from Clash.TopologicalSort import TopologicalSort
 from Emoji.emoji import EmojiParm, EmojiType, SSEmoji, SSREmoji, SurgeListEmoji
 from Expand.ExpandPolicyPath import ExpandPolicyPath
@@ -72,6 +73,24 @@ def Clash():
     response.headers["Content-Disposition"] = "attachment; filename="+filename
     return response
 
+@app.route('/clash/v1', methods=['GET', 'POST'])
+def ClashV1():
+    url = request.args.get('url')
+    filename = request.args.get("filename", "Config.yml")
+    snippet = request.args.get("snippet")
+    sort = request.args.get("sort", "True")
+    url_text = requests.get(url).content.decode()
+    x = Content2XML(url_text)
+    x = ExpandPolicyPath(x)
+    x = ExpandRuleSet(x)
+    if(sort == "True"):
+        x = TopologicalSort(x)
+
+    result = ToClashV1(x, snippet)
+
+    response = make_response(result)
+    response.headers["Content-Disposition"] = "attachment; filename="+filename
+    return response
 
 @app.route('/filter', methods=['GET', 'POST'])
 def Filter():
