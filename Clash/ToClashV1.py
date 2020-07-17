@@ -49,7 +49,16 @@ def ToClashV1(root, snippet=None):
         else:
             dic = {}
             for attrib in ProxyInfo:
-                if attrib in elem.attrib:
+                if attrib == "obfs" and attrib in elem.attrib:
+                    dic["plugin"] = "obfs"
+                    if "plugin-opts" not in dic:
+                        dic["plugin-opts"] = {}
+                    dic["plugin-opts"]["mode"] = elem.get(attrib)
+                if attrib == "obfs-host" and attrib in elem.attrib:
+                    if "plugin-opts" not in dic:
+                        dic["plugin-opts"] = {}
+                    dic["plugin-opts"]["host"] = elem.get(attrib)
+                elif attrib in elem.attrib:
                     if attrib == "type" and elem.get(attrib) == "custom":
                         value = "ss"
                     else:
