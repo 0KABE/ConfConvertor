@@ -4,3 +4,4 @@ pyyaml
 flask
 gunicorn
 supervisor
+requests
