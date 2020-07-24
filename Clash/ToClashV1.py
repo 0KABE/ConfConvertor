@@ -54,7 +54,7 @@ def ToClashV1(root, snippet=None):
                     if "plugin-opts" not in dic:
                         dic["plugin-opts"] = {}
                     dic["plugin-opts"]["mode"] = elem.get(attrib)
-                if attrib == "obfs-host" and attrib in elem.attrib:
+                elif attrib == "obfs-host" and attrib in elem.attrib:
                     if "plugin-opts" not in dic:
                         dic["plugin-opts"] = {}
                     dic["plugin-opts"]["host"] = elem.get(attrib)
